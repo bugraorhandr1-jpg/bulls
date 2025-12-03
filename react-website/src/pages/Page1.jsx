@@ -91,10 +91,22 @@ function Page1({ t }) {
                   <div className="visual-animation mobile-gaming-visual">
                     <div className="phone-frame">
                       <div className="phone-screen">
-                        <div className="game-element">🎮</div>
-                        <div className="game-element">⭐</div>
-                        <div className="game-element">🏆</div>
+                        <div className="game-element elem-1">🎮</div>
+                        <div className="game-element elem-2">⭐</div>
+                        <div className="game-element elem-3">🏆</div>
+                        <div className="game-element elem-4">💎</div>
+                        <div className="game-element elem-5">🔥</div>
+                        <div className="game-ui">
+                          <div className="ui-health">❤️ 100</div>
+                          <div className="ui-score">🏅 2,450</div>
+                          <div className="ui-level">⬆️ Level 15</div>
+                        </div>
                       </div>
+                    </div>
+                    <div className="mobile-stats">
+                      <div className="mini-stat">📱 iOS & Android</div>
+                      <div className="mini-stat">⚡ 60 FPS</div>
+                      <div className="mini-stat">🎯 Touch Controls</div>
                     </div>
                   </div>
                 ) : (
@@ -102,7 +114,21 @@ function Page1({ t }) {
                     <div className="monitor-frame">
                       <div className="monitor-screen">
                         <div className="fps-counter">144 FPS</div>
+                        <div className="game-hud">
+                          <div className="hud-element">🎯 Crosshair</div>
+                          <div className="hud-element">🗺️ Minimap</div>
+                          <div className="hud-element">💬 Team Chat</div>
+                        </div>
+                        <div className="pc-effects">
+                          <div className="ray-trace">✨ Ray Tracing</div>
+                          <div className="ultra-hd">4K Ultra HD</div>
+                        </div>
                       </div>
+                    </div>
+                    <div className="pc-peripherals">
+                      <div className="peripheral">⌨️ Keyboard</div>
+                      <div className="peripheral">🖱️ Mouse</div>
+                      <div className="peripheral">🎧 Headset</div>
                     </div>
                   </div>
                 )}
@@ -130,6 +156,12 @@ function Page1({ t }) {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="scroll-indicator">
+          <div className="scroll-line"></div>
+          <div className="scroll-text">Scroll Down</div>
+          <div className="scroll-arrow">↓</div>
         </div>
       </div>
     </section>

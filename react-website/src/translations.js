@@ -138,77 +138,80 @@ export const translations = {
     },
     hero: {
       title: "Bulls Digital Studio",
-      subtitle: "Game Development and Digital Advertising Services",
-      cta: "Explore Our Services"
+      subtitle: "Creating Digital Excellence Through Innovation, Technology and Creative Storytelling",
+      cta: "Explore Our Projects",
+      feature1: "Game Development",
+      feature2: "Influencer Marketing",
+      feature3: "Digital Solutions"
     },
     tab1: {
       title: "Game Development",
-      description: "We develop creative, fun and addictive games for mobile and PC platforms.",
+      description: "We develop creative, entertaining and addictive games for mobile and PC platforms with cutting-edge technology.",
       tabs: {
         mobile: {
           name: "Mobile Games",
-          subtitle: "iOS & Android Game Development",
-          description: "We create addictive mobile games that reach millions of users. Optimized with Unity and Unreal Engine, we deliver flawless gaming experiences on every device. We develop projects across a wide range from hyper-casual to mid-core.",
+          subtitle: "iOS & Android Game Development Expertise",
+          description: "We create addictive mobile games that reach 5+ million active players. With Unity and Unreal Engine optimization, we deliver flawless gaming experiences on every device. From hyper-casual to mid-core, puzzle to action - we develop projects across a wide spectrum. With App Store and Google Play optimization, monetization strategies and LiveOps management, we continuously grow your games. Our team specialized in A/B testing, analytics integration and player behavior analysis maximizes your game's potential.",
           items: [
-            { title: "Hyper-Casual Games", desc: "Fast, fun games with high viral potential. Easy to learn, hard to master mechanics." },
-            { title: "Strategy & RPG", desc: "Deep gameplay, character progression and long-term player engagement games." }
+            { title: "Hyper-Casual & Casual Games", desc: "Rapid development process, high viral potential mechanics, easy-to-learn gameplay. Games reaching millions with ad-based monetization and organic growth strategies." },
+            { title: "Mid-Core, Strategy & RPG", desc: "Deep gameplay mechanics, rich character development, guild systems and long-term player engagement. High-revenue projects with IAP optimization, event management and community engagement." }
           ]
         },
         pc: {
           name: "PC & Console",
-          subtitle: "High-Quality Gaming Experiences",
-          description: "We develop PC and console games with AAA-quality graphics, cinematic storytelling and innovative gameplay mechanics. We offer optimized projects for Steam, Epic Games Store and console platforms.",
+          subtitle: "Next-Gen Gaming Experiences",
+          description: "We develop PC and console games with AAA-quality graphics, ray-tracing support, cinematic storytelling and innovative gameplay mechanics. We utilize cutting-edge game engines like Unreal Engine 5 and Unity HDRP. We offer optimized projects with cross-platform features for Steam, Epic Games Store, PlayStation, Xbox and Nintendo Switch platforms. We are experts in performance optimization, shader programming and compatibility for various hardware configurations.",
           items: [
-            { title: "Multiplayer & E-Sports", desc: "Competitive multiplayer systems, matchmaking and real-time server infrastructures." },
-            { title: "Story-Driven Games", desc: "Compelling narratives, rich character development and cinematic gaming experiences." }
+            { title: "Multiplayer & E-Sports Games", desc: "Competitive multiplayer systems, low-latency networking, anti-cheat systems, ranking and matchmaking algorithms. E-sports focused projects with dedicated server infrastructure, spectator mode, replay system and tournament support." },
+            { title: "Story-Driven & Open World", desc: "Compelling storytelling, branching choice systems, rich character development and cinematic cutscenes. Unforgettable experiences with procedural world generation, dynamic weather systems, NPC AI and immersive gameplay." }
           ]
         }
       }
     },
     tab3: {
       title: "Influencer Marketing & Digital Advertising",
-      description: "We grow your brand with influencer campaigns, social media management and digital advertising strategies.",
+      description: "We grow your brand with influencer campaigns, social media management and comprehensive digital advertising strategies.",
       tabs: {
         digital: {
           name: "Influencer Marketing",
-          subtitle: "Influencer Campaign Management",
-          description: "We find influencers that fit your brand, negotiate deals and manage your campaigns. We work with a wide network from micro-influencers to mega celebrities. We design engagement-focused campaigns that provide organic growth on Instagram, TikTok, YouTube and other platforms. We work result-oriented with ROI tracking, content strategy and performance analytics.",
+          subtitle: "End-to-End Influencer Campaign Management",
+          description: "With our 500+ influencer network, we find the most suitable content creators for your brand and provide professional campaign management. We specialize in every segment from micro-influencers (10K-100K) to mega influencers (1M+). We design campaigns with high engagement rates that provide organic growth on Instagram, TikTok, YouTube, Twitch and Twitter. We work with complete transparency with detailed analytics, ROI tracking, content approval workflows and real-time performance reporting. Our expert team is with you at every stage of your campaign in brand partnerships, sponsored content, affiliate marketing and long-term ambassador agreements.",
           items: [
-            { title: "Influencer Relations", desc: "Influencer discovery, deal negotiations, campaign management and performance tracking." },
-            { title: "Campaign Strategy", desc: "Content planning, hashtag strategy, engagement optimization and trend analysis." }
+            { title: "Influencer Discovery & Management", desc: "AI-powered influencer discovery tools, audience demographic analysis, fake follower detection, contract negotiation and campaign briefing. Selection of authentic content creators aligned with your brand values." },
+            { title: "Campaign Strategy & Execution", desc: "360° campaign strategy, multi-platform content planning, hashtag research, optimal posting times, A/B testing and trend forecasting. Performance optimization and real-time campaign adjustments." }
           ]
         },
         content: {
-          name: "Social Media Management",
-          subtitle: "Content Creation & Community Management",
-          description: "We professionally manage your social media accounts and produce content with high viral potential. We provide organic follower growth with daily posts, story strategies, reels and TikTok content. We strengthen your brand's online presence with community management, comment moderation and customer interaction.",
+          name: "Social Media & Content Creation",
+          subtitle: "Full-Service Content Studio",
+          description: "We professionally manage your social media accounts 24/7 and produce platform-specific content with high viral potential. Our in-house creative team handles daily post designs, motion graphics, short-form video editing (Reels, TikTok, Shorts), long-form YouTube content and carousel designs. We maximize your organic reach with algorithm optimization, peak-time scheduling, engagement boosting techniques and trend-jacking. We manage your brand's online reputation with community management, crisis response, sentiment analysis, comment moderation and customer service integration. We provide continuous improvement with monthly analytics reports, competitor analysis and growth strategy recommendations.",
           items: [
-            { title: "Content Production", desc: "Daily post designs, video editing, reel/TikTok content and graphic design." },
-            { title: "Community Management", desc: "Comment moderation, DM management, follower interaction and brand reputation management." }
+            { title: "Content Production & Design", desc: "Professional photo/video shooting, advanced editing (Adobe Suite, DaVinci Resolve), animation & motion graphics, copywriting, meme marketing, UGC curation and brand storytelling. Platform-specific format optimization." },
+            { title: "Community & Growth Management", desc: "24/7 comment moderation, DM handling, influencer outreach, collaboration management, giveaway organization, crisis management, brand advocacy programs and detailed engagement analytics. Growth hacking strategies." }
           ]
         }
       }
     },
     tab4: {
       title: "About Us",
-      description: "As Bulls Digital Studio, we produce innovative solutions that bring together technology and creativity.",
+      description: "As Bulls Digital Studio, we produce innovative solutions that bring together technology and creativity to shape the future.",
       tabs: {
         company: {
           name: "Company",
-          subtitle: "Our Vision & Mission",
-          description: "Founded in 2020, Bulls Digital Studio is a technology company specialized in game development and digital marketing. We aim to provide our clients with world-class, innovative and sustainable digital solutions.",
+          subtitle: "Our Vision & Success Story",
+          description: "Founded in Istanbul in 2020, Bulls Digital Studio has become one of Turkey's leading technology companies in game development and digital marketing. We make a difference in the industry with 100+ successful projects, client portfolio in 30+ countries and 50M+ total user reach. We add measurable value to our clients with international standard service quality, agile development methodologies and data-driven approach. We are your trusted business partner with Google Partner, Meta Business Partner and Unity Certified Studio certifications. We are shaping the future with our working principles focused on sustainable growth, innovative technologies and customer satisfaction.",
           items: [
-            { title: "Our Vision", desc: "To be a globally recognized studio that leads the industry with pioneering projects in the digital world." },
-            { title: "Our Mission", desc: "To produce value-added solutions for our clients by combining technology and creativity." }
+            { title: "Our Vision & Values", desc: "To be a pioneer studio in the digital world, globally recognized. We guide the industry with our principles of innovation, quality, transparency and continuous improvement. We create game-changing projects by combining technology and creativity." },
+            { title: "Our Achievements & References", desc: "100+ successful project deliveries, 5M+ active players, 50M+ social media reach, 300% average ROI increase. Wide client portfolio from startups to Fortune 500 companies. Industry awards and certification partnerships." }
           ]
         },
         team: {
           name: "Our Team",
-          subtitle: "Our Expert Staff",
-          description: "With our 50+ expert employees, we have a strong team of game developers, mobile application specialists, digital marketing strategists and creative designers. Get in touch with us to bring your projects to life.",
+          subtitle: "World-Class Talent, Global Projects from Istanbul",
+          description: "Our 50+ person expert team consists of senior game developers, unity/unreal engineers, mobile specialists, UI/UX designers, digital marketing strategists, social media experts, data analysts and project managers. We work with agile methodologies, scrum processes and continuous improvement culture. With 10+ average years of experience, master's degrees and international certifications, we undertake projects at global standards. We strengthen our team with remote work infrastructure, continuous training programs, R&D investments and innovation labs. With multilingual support and multicultural team structure, we serve clients in 30+ countries. We are your strategic partner in the digital transformation journey.",
           items: [
-            { title: "Our Team", desc: "Multidisciplinary team of experienced developers, designers and strategy experts." },
-            { title: "Contact", desc: "Get in touch with us for your projects: info@bullsdigital.com" }
+            { title: "Expertise & Certifications", desc: "Senior developers with 10+ years experience, Google/Meta/Unity certifications, master's degrees and international project experience. Agile, Scrum Master and PMP certified project managers." },
+            { title: "Get in Touch", desc: "Let's collaborate for your projects: info@bullsdigital.com | +90 212 XXX XX XX. Free consultation, detailed proposal and reference portfolio presentations. We respond within 24 hours." }
           ]
         },
         contact: {

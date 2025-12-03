@@ -67,7 +67,7 @@ function Page4({ t }) {
     : [
         { id: 'stat-team-1', number: '50+', label: 'Team Members' },
         { id: 'stat-team-2', number: '15+', label: 'Years Exp.' },
-        { id: 'stat-team-3', number: '98%', label: 'Satısfactıon' }
+        { id: 'stat-team-3', number: '98%', label: 'Satisfaction' }
       ];
 
   return (
@@ -124,27 +124,29 @@ function Page4({ t }) {
           <div className="tab-content" key={activeTab}>
             {activeTab === 'contact' ? (
               <div className="contact-section">
-                <div className="contact-info-grid">
-                  <div className="contact-info-card">
-                    <div className="icon email-icon">📧</div>
-                    <h3>{t.tab4.tabs.contact.emailTitle}</h3>
-                    <a href={`mailto:${t.tab4.tabs.contact.emailInfo}`}>{t.tab4.tabs.contact.emailInfo}</a>
+                <div className="contact-layout">
+                  <div className="contact-info-side">
+                    <div className="contact-info-card">
+                      <div className="icon email-icon">📧</div>
+                      <h3>{t.tab4.tabs.contact.emailTitle}</h3>
+                      <a href={`mailto:${t.tab4.tabs.contact.emailInfo}`}>{t.tab4.tabs.contact.emailInfo}</a>
+                    </div>
+                    
+                    <div className="contact-info-card">
+                      <div className="icon phone-icon">📱</div>
+                      <h3>{t.tab4.tabs.contact.phoneTitle}</h3>
+                      <a href={`tel:${t.tab4.tabs.contact.phoneMain.replaceAll(' ', '')}`}>{t.tab4.tabs.contact.phoneMain}</a>
+                    </div>
+                    
+                    <div className="contact-info-card">
+                      <div className="icon location-icon">📍</div>
+                      <h3>{t.tab4.tabs.contact.locationTitle}</h3>
+                      <span className="location-address">{t.tab4.tabs.contact.locationAddress}</span>
+                    </div>
                   </div>
-                  
-                  <div className="contact-info-card">
-                    <div className="icon phone-icon">📱</div>
-                    <h3>{t.tab4.tabs.contact.phoneTitle}</h3>
-                    <a href={`tel:${t.tab4.tabs.contact.phoneMain.replaceAll(' ', '')}`}>{t.tab4.tabs.contact.phoneMain}</a>
-                  </div>
-                  
-                  <div className="contact-info-card">
-                    <div className="icon location-icon">📍</div>
-                    <h3>{t.tab4.tabs.contact.locationTitle}</h3>
-                    <span className="location-address">{t.tab4.tabs.contact.locationAddress}</span>
-                  </div>
-                </div>
 
-                <div className="contact-form-section">
+                  <div className="contact-form-side">
+                    <div className="contact-form-section">
                   <h2>{t.tab4.tabs.contact.formTitle}</h2>
                   <p className="form-description">{t.tab4.tabs.contact.formDescription}</p>
                   
@@ -214,6 +216,8 @@ function Page4({ t }) {
                       <div className="form-message error">{t.tab4.tabs.contact.errorMessage}</div>
                     )}
                   </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -281,6 +285,12 @@ function Page4({ t }) {
               </div>
             )}
           </div>
+        </div>
+        
+        <div className="scroll-indicator">
+          <div className="scroll-line"></div>
+          <div className="scroll-text">Scroll Down</div>
+          <div className="scroll-arrow">↓</div>
         </div>
       </div>
     </section>

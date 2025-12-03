@@ -37,6 +37,9 @@ function Page3({ t }) {
               <div className="inf-avatar avatar-3">👱‍♀️</div>
               <div className="inf-avatar avatar-4">🧑‍🎨</div>
               <div className="inf-avatar avatar-5">👨‍💼</div>
+              <div className="inf-avatar avatar-6">👨‍🚀</div>
+              <div className="inf-avatar avatar-7">👩‍💻</div>
+              <div className="inf-avatar avatar-8">🧑‍🎤</div>
             </div>
             <div className="social-reactions">
               <div className="reaction">❤️</div>
@@ -44,6 +47,17 @@ function Page3({ t }) {
               <div className="reaction">👍</div>
               <div className="reaction">😍</div>
               <div className="reaction">🎉</div>
+              <div className="reaction">✨</div>
+              <div className="reaction">💯</div>
+              <div className="reaction">🚀</div>
+            </div>
+            <div className="social-icons-float">
+              <div className="social-icon-float">📱</div>
+              <div className="social-icon-float">💬</div>
+              <div className="social-icon-float">📸</div>
+              <div className="social-icon-float">🎥</div>
+              <div className="social-icon-float">📊</div>
+              <div className="social-icon-float">🎯</div>
             </div>
           </div>
           <div className="hero-content">
@@ -79,6 +93,18 @@ function Page3({ t }) {
               <div className="tab-visual-section">
                 {activeTab === 'digital' ? (
                   <div className="visual-animation influencer-visual">
+                    <div className="influencer-network">
+                      <div className="network-center">🌟</div>
+                      <div className="network-node">👨‍💼</div>
+                      <div className="network-node">👩‍🎤</div>
+                      <div className="network-node">🧑‍🎨</div>
+                      <div className="network-node">👩‍💻</div>
+                      <div className="network-node">🧔‍♂️</div>
+                      <div className="network-node">👱‍♀️</div>
+                      <div className="network-line"></div>
+                      <div className="network-line"></div>
+                      <div className="network-line"></div>
+                    </div>
                     <div className="ai-avatar-grid">
                       <div className="avatar-card">👨‍💼</div>
                       <div className="avatar-card">👩‍🎤</div>
@@ -86,16 +112,20 @@ function Page3({ t }) {
                       <div className="avatar-card">👩‍💻</div>
                       <div className="avatar-card">🧔‍♂️</div>
                       <div className="avatar-card">👱‍♀️</div>
+                      <div className="avatar-card">👨‍🚀</div>
+                      <div className="avatar-card">🧑‍🎤</div>
                     </div>
                     <div className="ai-tools-banner">
                       <span className="ai-badge">🤖 AI-Powered</span>
                       <span className="ai-badge">📊 Analytics</span>
                       <span className="ai-badge">🎯 Targeting</span>
+                      <span className="ai-badge">🚀 Growth</span>
                     </div>
                     <div className="social-stats-overlay">
                       <div className="stat-bubble">📸 50K Posts</div>
                       <div className="stat-bubble">❤️ 10M Likes</div>
                       <div className="stat-bubble">💬 500K Comments</div>
+                      <div className="stat-bubble">👥 2M Followers</div>
                     </div>
                   </div>
                 ) : (
@@ -107,6 +137,14 @@ function Page3({ t }) {
                         <div className="mini-video">🎥</div>
                         <div className="mini-video">📸</div>
                         <div className="mini-video">🎞️</div>
+                        <div className="mini-video">📺</div>
+                        <div className="mini-video">🎪</div>
+                      </div>
+                      <div className="content-tools">
+                        <div className="tool-icon">✂️</div>
+                        <div className="tool-icon">🎨</div>
+                        <div className="tool-icon">🎵</div>
+                        <div className="tool-icon">💡</div>
                       </div>
                       <div className="engagement-metrics">
                         <div className="metric-bar">
@@ -120,6 +158,10 @@ function Page3({ t }) {
                         <div className="metric-bar">
                           <span>🔄 Shares</span>
                           <div className="progress-bar"><div className="progress-fill" style={{width: '60%'}}>2.5M</div></div>
+                        </div>
+                        <div className="metric-bar">
+                          <span>💬 Comments</span>
+                          <div className="progress-bar"><div className="progress-fill" style={{width: '85%'}}>8.5M</div></div>
                         </div>
                       </div>
                     </div>
@@ -149,6 +191,12 @@ function Page3({ t }) {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="scroll-indicator">
+          <div className="scroll-line"></div>
+          <div className="scroll-text">Scroll Down</div>
+          <div className="scroll-arrow">↓</div>
         </div>
       </div>
     </section>

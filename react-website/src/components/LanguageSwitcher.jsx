@@ -28,7 +28,6 @@ function LanguageSwitcher({ currentLang, onLanguageChange }) {
         onClick={() => setIsOpen(!isOpen)}
         title={currentLang === 'tr' ? 'Türkçe' : 'EN'}
       >
-        <span className="lang-flag">{currentLang === 'tr' ? '🇹🇷' : '🇬🇧'}</span>
         <span className="lang-text">{currentLang === 'tr' ? 'TR' : 'EN'}</span>
         <span className={`lang-arrow ${isOpen ? 'open' : ''}`}>▼</span>
       </button>
@@ -40,14 +39,14 @@ function LanguageSwitcher({ currentLang, onLanguageChange }) {
             onClick={() => handleLanguageSelect('tr')}
             title="Türkçe"
           >
-            <span className="lang-flag">🇹🇷</span>
+            <span className="lang-text">TR</span>
           </button>
           <button 
             className={`lang-option ${currentLang === 'en' ? 'active' : ''}`}
             onClick={() => handleLanguageSelect('en')}
             title="EN"
           >
-            <span className="lang-flag">🇬🇧</span>
+            <span className="lang-text">EN</span>
           </button>
         </div>
       )}
