@@ -29,32 +29,42 @@ function Page1({ t }) {
   return (
     <section className="page-section">
       <div className="container">
-        {/* Kırmızı Parlayan Yıldızlar - Her Yerde */}
-        <div className="page-particles">
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-        </div>
-
-        <div className="page-hero">
+        <div className="page-hero gaming-page-hero">
+          {/* Animated Background - Energy Lines */}
+          <div className="gaming-energy-bg">
+            <div className="energy-line el-1"></div>
+            <div className="energy-line el-2"></div>
+            <div className="energy-line el-3"></div>
+            <div className="energy-line el-4"></div>
+            <div className="energy-line el-5"></div>
+            <div className="energy-pulse ep-1"></div>
+            <div className="energy-pulse ep-2"></div>
+            <div className="energy-pulse ep-3"></div>
+          </div>
           <div className="hero-animation gaming-animation">
+            {/* Animated game controller SVG */}
+            <div className="gaming-controller-anim">
+              <svg className="controller-svg" viewBox="0 0 120 80" fill="none">
+                <rect x="10" y="15" width="100" height="50" rx="25" stroke="currentColor" strokeWidth="2"/>
+                <circle cx="35" cy="40" r="8" stroke="currentColor" strokeWidth="2" className="ctrl-dpad"/>
+                <circle cx="85" cy="40" r="4" fill="currentColor" className="ctrl-btn ctrl-btn-1"/>
+                <circle cx="95" cy="30" r="4" fill="currentColor" className="ctrl-btn ctrl-btn-2"/>
+                <circle cx="75" cy="30" r="4" fill="currentColor" className="ctrl-btn ctrl-btn-3"/>
+                <circle cx="85" cy="20" r="4" fill="currentColor" className="ctrl-btn ctrl-btn-4"/>
+                <path d="M10 35 Q0 40 10 45" stroke="currentColor" strokeWidth="2" className="ctrl-grip"/>
+                <path d="M110 35 Q120 40 110 45" stroke="currentColor" strokeWidth="2" className="ctrl-grip"/>
+              </svg>
+              <div className="controller-glow"></div>
+            </div>
+            {/* Floating game icons */}
+            <div className="game-float-icons">
+              <svg className="gf-icon gf-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg className="gf-icon gf-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <svg className="gf-icon gf-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg className="gf-icon gf-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="7"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>
+            </div>
           </div>
           <div className="hero-content">
-            <div className="game-effects">
-              <div className="effect-icon">⚔️</div>
-              <div className="effect-icon">🛡️</div>
-              <div className="effect-icon">✨</div>
-              <div className="effect-icon">💫</div>
-              <div className="effect-icon">🔮</div>
-              <div className="effect-icon">⚡</div>
-              <div className="effect-icon">🎯</div>
-              <div className="effect-icon">💎</div>
-            </div>
             <h1 className="hero-title">{t.tab1.title}</h1>
             <p className="hero-subtitle">{t.tab1.description}</p>
           </div>
@@ -89,22 +99,26 @@ function Page1({ t }) {
                   <div className="visual-animation mobile-gaming-visual">
                     <div className="phone-frame">
                       <div className="phone-screen">
-                        <div className="game-element elem-1">🎮</div>
-                        <div className="game-element elem-2">⭐</div>
-                        <div className="game-element elem-3">🏆</div>
-                        <div className="game-element elem-4">💎</div>
-                        <div className="game-element elem-5">🔥</div>
                         <div className="game-ui">
-                          <div className="ui-health">❤️ 100</div>
-                          <div className="ui-score">🏅 2,450</div>
-                          <div className="ui-level">⬆️ Level 15</div>
+                          <div className="ui-health">HP: 100</div>
+                          <div className="ui-score">Score: 2,450</div>
+                          <div className="ui-level">Level 15</div>
                         </div>
                       </div>
                     </div>
                     <div className="mobile-stats">
-                      <div className="mini-stat">📱 iOS & Android</div>
-                      <div className="mini-stat">⚡ 60 FPS</div>
-                      <div className="mini-stat">🎯 Touch Controls</div>
+                      <div className="mini-stat">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+                        iOS & Android
+                      </div>
+                      <div className="mini-stat">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        60 FPS
+                      </div>
+                      <div className="mini-stat">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+                        Touch Controls
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -113,20 +127,41 @@ function Page1({ t }) {
                       <div className="monitor-screen">
                         <div className="fps-counter">144 FPS</div>
                         <div className="game-hud">
-                          <div className="hud-element">🎯 Crosshair</div>
-                          <div className="hud-element">🗺️ Minimap</div>
-                          <div className="hud-element">💬 Team Chat</div>
+                          <div className="hud-element">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+                            Crosshair
+                          </div>
+                          <div className="hud-element">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+                            Minimap
+                          </div>
+                          <div className="hud-element">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            Team Chat
+                          </div>
                         </div>
                         <div className="pc-effects">
-                          <div className="ray-trace">✨ Ray Tracing</div>
+                          <div className="ray-trace">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Ray Tracing
+                          </div>
                           <div className="ultra-hd">4K Ultra HD</div>
                         </div>
                       </div>
                     </div>
                     <div className="pc-peripherals">
-                      <div className="peripheral">⌨️ Keyboard</div>
-                      <div className="peripheral">🖱️ Mouse</div>
-                      <div className="peripheral">🎧 Headset</div>
+                      <div className="peripheral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="12" rx="2"/><path d="M6 20h12M12 16v4"/></svg>
+                        Keyboard
+                      </div>
+                      <div className="peripheral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="2" width="12" height="18" rx="6"/><path d="M12 6v4"/></svg>
+                        Mouse
+                      </div>
+                      <div className="peripheral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+                        Headset
+                      </div>
                     </div>
                   </div>
                 )}
