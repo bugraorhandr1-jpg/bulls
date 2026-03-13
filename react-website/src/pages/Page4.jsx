@@ -286,12 +286,96 @@ function Page4({ t }) {
             )}
           </div>
         </div>
-        
-        <div className="scroll-indicator">
-          <div className="scroll-line"></div>
-          <div className="scroll-text">Scroll Down</div>
-          <div className="scroll-arrow">↓</div>
-        </div>
+
+        {/* Team Members Slider */}
+        {activeTab !== 'contact' && (
+          <div className="slider-section">
+            <h2 className="slider-title">👥 {activeTab === 'company' ? 'Our Achievements' : 'Meet Our Team'}</h2>
+            <div className="project-slider">
+              <div className="slider-track">
+                {activeTab === 'company' ? (
+                  <>
+                    <div className="project-card">
+                      <div className="project-icon">🏆</div>
+                      <h3>Best Studio 2024</h3>
+                      <p>Industry Excellence Award</p>
+                      <div className="project-stats">
+                        <span>🌟 Gold</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">🎯</div>
+                      <h3>Top Innovator</h3>
+                      <p>Creative Technology Prize</p>
+                      <div className="project-stats">
+                        <span>🌟 Platinum</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">⭐</div>
+                      <h3>Client Choice</h3>
+                      <p>Best Partner Award</p>
+                      <div className="project-stats">
+                        <span>🌟 Diamond</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">💎</div>
+                      <h3>Game Changer</h3>
+                      <p>Digital Transformation Leader</p>
+                      <div className="project-stats">
+                        <span>🌟 Elite</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="project-card">
+                      <div className="project-icon">👨‍💼</div>
+                      <h3>John CEO</h3>
+                      <p>Chief Executive Officer</p>
+                      <div className="project-stats">
+                        <span>📧 Contact</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">👩‍💻</div>
+                      <h3>Sarah CTO</h3>
+                      <p>Chief Technology Officer</p>
+                      <div className="project-stats">
+                        <span>📧 Contact</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">🧑‍🎨</div>
+                      <h3>Mike Designer</h3>
+                      <p>Creative Director</p>
+                      <div className="project-stats">
+                        <span>📧 Contact</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">👨‍🔬</div>
+                      <h3>Alex Developer</h3>
+                      <p>Lead Engineer</p>
+                      <div className="project-stats">
+                        <span>📧 Contact</span>
+                      </div>
+                    </div>
+                    <div className="project-card">
+                      <div className="project-icon">👩‍🚀</div>
+                      <h3>Emma Manager</h3>
+                      <p>Project Manager</p>
+                      <div className="project-stats">
+                        <span>📧 Contact</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

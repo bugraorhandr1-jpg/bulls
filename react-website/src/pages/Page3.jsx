@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../components/Icon';
+import logo from '../assets/img/ChatGPT Image 2 Ara 2025 14_59_01.png';
 
 function Page3({ t }) {
   const [activeTab, setActiveTab] = useState('digital');
@@ -31,6 +32,34 @@ function Page3({ t }) {
       <div className="container">
         <div className="page-hero">
           <div className="hero-animation influencer-animation">
+            {/* Telefon ve Sosyal Medya Boğası */}
+            <div className="bull-phone-animation">
+              <div className="mega-phone">
+                <div className="phone-screen-bright">
+                  <div className="social-feed">
+                    <div className="feed-post">📸</div>
+                    <div className="feed-post">❤️</div>
+                    <div className="feed-post">💬</div>
+                  </div>
+                </div>
+              </div>
+              <div className="bull-logo-social">
+                <img src={logo} alt="Bulls Logo" className="jumping-bull-logo" />
+              </div>
+              <div className="viral-explosion">
+                <div className="viral-circle circle-1"></div>
+                <div className="viral-circle circle-2"></div>
+                <div className="viral-circle circle-3"></div>
+              </div>
+              <div className="engagement-burst">
+                <div className="burst-emoji emoji-1">🔥</div>
+                <div className="burst-emoji emoji-2">💯</div>
+                <div className="burst-emoji emoji-3">🚀</div>
+                <div className="burst-emoji emoji-4">⭐</div>
+              </div>
+            </div>
+            
+            {/* Influencer Avatars */}
             <div className="influencer-avatars">
               <div className="inf-avatar avatar-1">👩‍🎤</div>
               <div className="inf-avatar avatar-2">🧔‍♂️</div>
@@ -41,6 +70,8 @@ function Page3({ t }) {
               <div className="inf-avatar avatar-7">👩‍💻</div>
               <div className="inf-avatar avatar-8">🧑‍🎤</div>
             </div>
+            
+            {/* Social Reactions */}
             <div className="social-reactions">
               <div className="reaction">❤️</div>
               <div className="reaction">🔥</div>
@@ -51,6 +82,8 @@ function Page3({ t }) {
               <div className="reaction">💯</div>
               <div className="reaction">🚀</div>
             </div>
+            
+            {/* Social Icons */}
             <div className="social-icons-float">
               <div className="social-icon-float">📱</div>
               <div className="social-icon-float">💬</div>
@@ -192,11 +225,68 @@ function Page3({ t }) {
             </div>
           </div>
         </div>
-        
-        <div className="scroll-indicator">
-          <div className="scroll-line"></div>
-          <div className="scroll-text">Scroll Down</div>
-          <div className="scroll-arrow">↓</div>
+
+        {/* Influencer Slider Section */}
+        <div className="slider-section">
+          <h2 className="slider-title">✨ {activeTab === 'digital' ? 'Top Influencer Partners' : 'Viral Campaigns'}</h2>
+          <div className="project-slider">
+            <div className="slider-track">
+              <div className="project-card">
+                <div className="project-icon">👩‍🎤</div>
+                <h3>Fashion Maven</h3>
+                <p>Style & Beauty Expert</p>
+                <div className="project-stats">
+                  <span>❤️ 500K</span>
+                  <span>👥 2M</span>
+                </div>
+              </div>
+              <div className="project-card">
+                <div className="project-icon">🎮</div>
+                <h3>Gaming Pro</h3>
+                <p>E-Sports Champion</p>
+                <div className="project-stats">
+                  <span>❤️ 800K</span>
+                  <span>👥 3.5M</span>
+                </div>
+              </div>
+              <div className="project-card">
+                <div className="project-icon">🍔</div>
+                <h3>Food Blogger</h3>
+                <p>Culinary Adventures</p>
+                <div className="project-stats">
+                  <span>❤️ 350K</span>
+                  <span>👥 1.8M</span>
+                </div>
+              </div>
+              <div className="project-card">
+                <div className="project-icon">🏋️</div>
+                <h3>Fitness Coach</h3>
+                <p>Health & Wellness</p>
+                <div className="project-stats">
+                  <span>❤️ 600K</span>
+                  <span>👥 2.2M</span>
+                </div>
+              </div>
+              <div className="project-card">
+                <div className="project-icon">📸</div>
+                <h3>Travel Vlogger</h3>
+                <p>World Explorer</p>
+                <div className="project-stats">
+                  <span>❤️ 900K</span>
+                  <span>👥 4M</span>
+                </div>
+              </div>
+              <div className="project-card">
+                <div className="project-icon">🎵</div>
+                <h3>Music Artist</h3>
+                <p>Rising Star</p>
+                <div className="project-stats">
+                  <span>❤️ 1.2M</span>
+                  <span>👥 5M</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

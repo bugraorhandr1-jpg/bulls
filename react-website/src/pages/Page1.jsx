@@ -29,14 +29,22 @@ function Page1({ t }) {
   return (
     <section className="page-section">
       <div className="container">
+        {/* Kırmızı Parlayan Yıldızlar - Her Yerde */}
+        <div className="page-particles">
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+        </div>
+
         <div className="page-hero">
           <div className="hero-animation gaming-animation">
-            <div className="gaming-character char-1">🧙‍♂️</div>
-            <div className="gaming-character char-2">🦸‍♀️</div>
-            <div className="gaming-character char-3">🤖</div>
-            <div className="gaming-character char-4">👨‍🚀</div>
-            <div className="gaming-character char-5">🧝‍♀️</div>
-            <div className="gaming-character char-6">👾</div>
+          </div>
+          <div className="hero-content">
             <div className="game-effects">
               <div className="effect-icon">⚔️</div>
               <div className="effect-icon">🛡️</div>
@@ -47,16 +55,6 @@ function Page1({ t }) {
               <div className="effect-icon">🎯</div>
               <div className="effect-icon">💎</div>
             </div>
-            <div className="game-particles">
-              <div className="particle"></div>
-              <div className="particle"></div>
-              <div className="particle"></div>
-              <div className="particle"></div>
-              <div className="particle"></div>
-              <div className="particle"></div>
-            </div>
-          </div>
-          <div className="hero-content">
             <h1 className="hero-title">{t.tab1.title}</h1>
             <p className="hero-subtitle">{t.tab1.description}</p>
           </div>
@@ -157,12 +155,8 @@ function Page1({ t }) {
             </div>
           </div>
         </div>
-        
-        <div className="scroll-indicator">
-          <div className="scroll-line"></div>
-          <div className="scroll-text">Scroll Down</div>
-          <div className="scroll-arrow">↓</div>
-        </div>
+
+
       </div>
     </section>
   );

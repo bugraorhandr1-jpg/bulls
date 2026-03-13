@@ -113,12 +113,6 @@ function Hero({ t }) {
             <div className="button-shine"></div>
           </button>
         </Link>
-        
-        <div className="scroll-indicator">
-          <div className="scroll-line"></div>
-          <div className="scroll-text">Scroll Down</div>
-          <div className="scroll-arrow">↓</div>
-        </div>
       </div>
     </section>
   );
