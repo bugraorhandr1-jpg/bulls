@@ -1069,7 +1069,7 @@ export default function Page8() {
           mode: "dark",
           primary: { main: "#ffffff" },
           secondary: { main: "#ff4d4d" },
-          background: { default: "#050505", paper: "#0a0a0a" },
+          background: { default: "var(--bg-theme-core)", paper: "var(--bg-theme-elevated)" },
           text: {
             primary: "#ffffff",
             secondary: "rgba(255,255,255,0.68)",
@@ -1112,8 +1112,10 @@ export default function Page8() {
       <Box
         ref={rootRef}
         onMouseMove={handleMouseMove}
+        className="bg-theme-tech"
         sx={{
-          bgcolor: "background.default",
+          "--bg-theme-glow-strength": 0.5,
+          bgcolor: "transparent",
           color: "text.primary",
           minHeight: "100vh",
           position: "relative",
@@ -1141,6 +1143,7 @@ export default function Page8() {
 
         <FloatingOrbs mouseX={mouseX} mouseY={mouseY} />
         <FrameShell />
+        <Box className="bg-layer-glow" />
 
         {/* ambient background */}
         <Box
@@ -1156,7 +1159,7 @@ export default function Page8() {
           sx={{
             position: "absolute",
             inset: 0,
-            opacity: 0.08,
+            opacity: "var(--bg-theme-grid-opacity)",
             backgroundImage:
               "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
             backgroundSize: "72px 72px",

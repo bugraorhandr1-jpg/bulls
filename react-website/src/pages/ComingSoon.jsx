@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Lanyard from "./deneme";
 
 /* ─── brand ─── */
 const C = { red: "#e8220a", gold: "#f5a800", bg: "#060402", text: "#ede8dc" };
@@ -103,49 +102,6 @@ function ShaderBG() {
   );
 }
 
-function Cursor() {
-  const [p, setP] = useState({ x: -300, y: -300 });
-  const [h, setH] = useState(false);
-  useEffect(() => {
-    const m = (e) => {
-      setP({ x: e.clientX, y: e.clientY });
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      setH(!!el?.closest("button,a,input,canvas"));
-    };
-    window.addEventListener("mousemove", m);
-    return () => window.removeEventListener("mousemove", m);
-  }, []);
-  return (
-    <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 99999 }}>
-      <motion.div
-        animate={{ x: p.x, y: p.y, scale: h ? 1.6 : 1 }}
-        transition={{ type: "spring", stiffness: 900, damping: 42, mass: 0.08 }}
-        style={{
-          position: "fixed",
-          translateX: "-50%",
-          translateY: "-50%",
-          width: 8,
-          height: 8,
-          borderRadius: "50%",
-          background: h ? "#f5a800" : "#e8220a",
-          boxShadow: `0 0 12px ${h ? "#f5a800" : "#e8220a"}99`,
-        }}
-      />
-      <motion.div
-        animate={{ x: p.x, y: p.y, width: h ? 44 : 20, height: h ? 44 : 20 }}
-        transition={{ type: "spring", stiffness: 90, damping: 22 }}
-        style={{
-          position: "fixed",
-          translateX: "-50%",
-          translateY: "-50%",
-          borderRadius: "50%",
-          border: `1.5px solid ${h ? "rgba(245,168,0,.6)" : "rgba(232,34,10,.45)"}`,
-        }}
-      />
-    </div>
-  );
-}
-
 export default function ComingSoon() {
   const cd = useCountdown("2026-09-01T00:00:00");
   const [email, setEmail] = useState("");
@@ -156,10 +112,9 @@ export default function ComingSoon() {
       <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-      html,body{width:100%;height:100%;overflow:hidden;background:#060402}
-      *{cursor:none!important}
+      html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-theme-core)}
       ::selection{background:#e8220a;color:#fff}
-      body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
+      body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:var(--bg-theme-noise-opacity,.04);
         background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         background-size:200px}
       input:focus{outline:none}
@@ -167,10 +122,11 @@ export default function ComingSoon() {
     `}</style>
 
       <ShaderBG />
-      <Cursor />
 
       <div
+        className="bg-theme-tech"
         style={{
+          "--bg-theme-glow-strength": 0.58,
           width: "100vw",
           height: "100vh",
           position: "relative",
@@ -180,6 +136,7 @@ export default function ComingSoon() {
           fontFamily: "'IBM Plex Mono',monospace",
         }}
       >
+        <div className="bg-layer-glow" />
         <div
           style={{
             position: "relative",
@@ -297,7 +254,6 @@ export default function ComingSoon() {
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 13,
-                  cursor: "none",
                   transition: "color .2s,border-color .2s",
                 }}
               >
@@ -399,7 +355,6 @@ export default function ComingSoon() {
                       fontSize: 10,
                       letterSpacing: "0.2em",
                       textTransform: "uppercase",
-                      cursor: "none",
                       transition: "all .2s",
                     }}
                   >

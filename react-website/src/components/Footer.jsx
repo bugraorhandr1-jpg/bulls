@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import bullLogo from '../assets/img/ChatGPT Image 2 Ara 2025 14_59_01.png';
+import ShaderBG from './ShaderBG';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -12,8 +14,14 @@ const fadeUp = {
 };
 
 function Footer({ t }) {
+  const location = useLocation();
+  const thermalRoutes = ['/thermal', '/spells', '/showcase', '/particle', '/hero', '/mobile', '/digital-house', '/landing'];
+  const isThermalContext = thermalRoutes.includes(location.pathname);
+  const isSpells = location.pathname === '/spells';
+
   return (
-    <footer>
+    <footer className={`${isThermalContext ? 'footer-thermal' : ''} ${isSpells ? 'footer-spells' : ''}`}>
+      {isSpells && <ShaderBG />}
       <div className="footer-gradient"></div>
       <div className="container">
         <div className="footer-content">

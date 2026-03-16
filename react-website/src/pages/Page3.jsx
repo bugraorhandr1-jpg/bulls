@@ -27,7 +27,7 @@ function Page3({ t }) {
       ];
 
   return (
-    <section className="page-section">
+    <section className="page-section bg-theme-tech">
       <div className="container">
         
         {/* === HERO: Animated Phone Showcase === */}

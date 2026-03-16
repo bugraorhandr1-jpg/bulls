@@ -118,7 +118,7 @@ function BullsCursor() {
 /* ─── NOISE ───────────────────────────────────── */
 function Grain() {
   return (
-    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:0.055,mixBlendMode:"overlay"}}>
+    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:"var(--bg-theme-noise-opacity)",mixBlendMode:"overlay"}}>
       <filter id="p9grain"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch"/></filter>
       <rect width="100%" height="100%" filter="url(#p9grain)"/>
     </svg>
@@ -238,7 +238,7 @@ function PhoneCollage(){
           whileHover={{y:-10,scale:1.04,zIndex:20}}
           style={{position:"absolute",top:img.y,left:img.x,width:img.w,zIndex:img.z,
             boxShadow:`0 24px 70px rgba(0,0,0,0.6), 0 0 0 1px ${C.border}`,
-            borderRadius:8,overflow:"hidden",cursor:"none"}}
+            borderRadius:8,overflow:"hidden"}}
         >
           <img src={img.src} alt="" style={{width:"100%",display:"block",
             filter:"contrast(1.1) brightness(0.85) saturate(0.7)"}}
@@ -278,7 +278,7 @@ function ProjRow({p,idx}){
       viewport={{once:true}} transition={{delay:idx*0.1,duration:0.6,ease:[0.22,1,0.36,1]}}
       style={{display:"grid",gridTemplateColumns:"90px 1fr 200px 72px 40px",
         alignItems:"center",padding:"22px 0",borderBottom:`1px solid ${C.border}`,
-        position:"relative",cursor:"none"}}
+        position:"relative"}}
     >
       <motion.div animate={{scaleX:hov?1:0}} transition={{duration:0.4,ease:[0.22,1,0.36,1]}}
         style={{position:"absolute",inset:0,background:`${col}0d`,transformOrigin:"left",zIndex:0}}/>
@@ -315,18 +315,8 @@ export default function Page9() {
     t();const id=setInterval(t,1000);return()=>clearInterval(id);
   },[]);
 
-  /* hide default cursor while on this page */
-  useEffect(()=>{
-    document.documentElement.style.cursor="none";
-    document.body.style.cursor="none";
-    return()=>{
-      document.documentElement.style.cursor="";
-      document.body.style.cursor="";
-    };
-  },[]);
-
   return(
-    <div className="page9-bdh" style={{background:C.black,color:C.paper,fontFamily:"'IBM Plex Mono',monospace"}}>
+    <div className="page9-bdh bg-theme-tech" style={{color:C.paper,fontFamily:"'IBM Plex Mono',monospace"}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
         .page9-bdh *,.page9-bdh *::before,.page9-bdh *::after{box-sizing:border-box}
@@ -337,7 +327,6 @@ export default function Page9() {
         .page9-bdh .D{font-family:'Bebas Neue',sans-serif}
         .page9-bdh .italic{font-family:'Playfair Display',Georgia,serif;font-style:italic}
         .page9-bdh section{position:relative;z-index:2}
-        .page9-bdh button{cursor:none}
         @keyframes p9tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         .page9-bdh .tk-wrap{overflow:hidden;border-top:1px solid ${C.border};border-bottom:1px solid ${C.border};position:relative;z-index:2}
         .page9-bdh .tk-inner{display:flex;animation:p9tk 22s linear infinite;width:max-content}
@@ -348,7 +337,6 @@ export default function Page9() {
         .page9-bdh ::selection{background:${C.red};color:#fff}
       `}</style>
 
-      <BullsCursor/>
       <Grain/>
 
       {/* ══ HERO ══ */}
@@ -466,7 +454,7 @@ export default function Page9() {
               whileHover="hov" style={{position:"relative",overflow:"hidden",
                 borderRight:i%2===0?`1px solid ${C.border}`:"none",
                 borderBottom:i<2?`1px solid ${C.border}`:"none",
-                padding:36,cursor:"none"}}
+                padding:36}}
             >
               {/* fill */}
               <motion.div variants={{hov:{scaleY:1},rest:{scaleY:0}}} initial="rest"
@@ -625,7 +613,7 @@ export default function Page9() {
         <div style={{display:"flex",gap:28}}>
           {["Privacy","Terms","Instagram","LinkedIn"].map(n=>(
             <motion.span key={n} whileHover={{color:C.gold}}
-              style={{fontSize:9,letterSpacing:"0.18em",textTransform:"uppercase",color:C.muted,cursor:"none",transition:"color 0.15s"}}>
+              style={{fontSize:9,letterSpacing:"0.18em",textTransform:"uppercase",color:C.muted,transition:"color 0.15s"}}>
               {n}
             </motion.span>
           ))}

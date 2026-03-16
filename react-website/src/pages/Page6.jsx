@@ -234,7 +234,7 @@ function NoiseOverlay() {
         zIndex: 2,
         width: '100%',
         height: '100%',
-        opacity: 0.35,
+        opacity: 'var(--bg-theme-noise-opacity)',
         mixBlendMode: 'overlay',
       }}
     />
@@ -641,7 +641,7 @@ export default function Page6({ t }) {
           mode: 'dark',
           primary: { main: '#ffffff' },
           secondary: { main: '#ff4d4d' },
-          background: { default: '#020202', paper: '#080808' },
+          background: { default: 'var(--bg-theme-core)', paper: 'var(--bg-theme-elevated)' },
           text: { primary: '#f5f5f5', secondary: 'rgba(255,255,255,0.50)' },
         },
         shape: { borderRadius: 24 },
@@ -683,8 +683,10 @@ export default function Page6({ t }) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
+        className="bg-theme-tech"
         sx={{
-          bgcolor: 'background.default',
+          '--bg-theme-glow-strength': 0.56,
+          bgcolor: 'transparent',
           color: 'text.primary',
           minHeight: '100vh',
           position: 'relative',
@@ -709,6 +711,7 @@ export default function Page6({ t }) {
         {/* ── Ambient layers ── */}
         <AuroraBackground />
         <MouseSpotlight mouseXPx={mouseXPx} mouseYPx={mouseYPx} />
+        <Box className="bg-layer-glow" />
         <NoiseOverlay />
 
         {/* Grid overlay */}
@@ -716,7 +719,7 @@ export default function Page6({ t }) {
           sx={{
             position: 'fixed',
             inset: 0,
-            opacity: 0.025,
+            opacity: 'var(--bg-theme-grid-opacity)',
             backgroundImage:
               'linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)',
             backgroundSize: '80px 80px',

@@ -110,7 +110,7 @@ function ThermalCursor() {
 /* ── Noise Texture (SVG) ── */
 function NoiseTexture() {
   return (
-    <svg style={{ position: "fixed", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1, opacity: 0.025, mixBlendMode: "multiply" }}>
+    <svg style={{ position: "fixed", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1, opacity: "var(--bg-theme-light-noise-opacity)", mixBlendMode: "multiply" }}>
       <filter id="thermal-noise">
         <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" />
         <feColorMatrix type="saturate" values="0" />
@@ -413,24 +413,14 @@ export default function Page7({ t }) {
     return () => clearInterval(id);
   }, []);
 
-  /* Scope the custom cursor: hide default cursor only while on this page */
-  useEffect(() => {
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  }, []);
-
   return (
-    <div className="page7-thermal" style={{ background: "#f5f2ee", color: "#0a0a0a", fontFamily: "'IBM Plex Mono', monospace" }}>
+    <div className="page7-thermal bg-theme-editorial" style={{ color: "#0a0a0a", fontFamily: "'IBM Plex Mono', monospace" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,900;1,400&display=swap');
         .page7-thermal *,
         .page7-thermal *::before,
         .page7-thermal *::after { box-sizing: border-box; }
-        .page7-thermal { --ink: #0a0a0a; --paper: #f5f2ee; --grid: rgba(0,0,0,0.055); }
+        .page7-thermal { --ink: #0a0a0a; --paper: var(--bg-theme-light-core); --grid: var(--bg-theme-light-grid-opacity); }
         .page7-thermal::before {
           content: ''; position: fixed; inset: 0;
           background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, var(--grid) 31px, var(--grid) 32px);
@@ -453,21 +443,20 @@ export default function Page7({ t }) {
         }
       `}</style>
 
-      <ThermalCursor />
       <NoiseTexture />
 
       {/* ── HERO ── */}
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <div style={{
-          padding: "10px 40px", borderBottom: "1px solid rgba(0,0,0,0.1)",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
+          padding: "8px 36px", borderBottom: "1px solid rgba(0,0,0,0.1)",
+          display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20,
         }}>
-          <span style={{ fontSize: 10, color: "#888", letterSpacing: "0.22em" }}>VOL. 01 — 2026</span>
-          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+          <span style={{ fontSize: 9, color: "#888", letterSpacing: "0.22em" }}>VOL. 01 — 2026</span>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", marginLeft: "auto" }}>
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 0 3px #22c55e22" }} />
-            <span style={{ fontSize: 10, color: "#888", letterSpacing: "0.16em" }}>AVAILABLE FOR WORK</span>
+            <span style={{ fontSize: 9, color: "#888", letterSpacing: "0.16em" }}>AVAILABLE FOR WORK</span>
           </div>
-          <span style={{ fontFamily: "IBM Plex Mono", fontSize: 10, color: "#888", letterSpacing: "0.08em" }}>{time}</span>
+          <span style={{ fontFamily: "IBM Plex Mono", fontSize: 9, color: "#888", letterSpacing: "0.08em", minWidth: "50px", textAlign: "right" }}>{time}</span>
         </div>
 
         <div style={{
@@ -510,7 +499,7 @@ export default function Page7({ t }) {
                   style={{
                     background: "var(--ink)", color: "var(--paper)", border: "none",
                     padding: "13px 24px", fontFamily: "IBM Plex Mono", fontSize: 11,
-                    letterSpacing: "0.14em", textTransform: "uppercase", cursor: "none", transition: "background 0.2s",
+                    letterSpacing: "0.14em", textTransform: "uppercase", transition: "background 0.2s",
                   }}
                 >
                   Start a project
@@ -520,7 +509,7 @@ export default function Page7({ t }) {
                   style={{
                     background: "transparent", color: "#888", border: "1px solid #ddd",
                     padding: "13px 24px", fontFamily: "IBM Plex Mono", fontSize: 11,
-                    letterSpacing: "0.14em", textTransform: "uppercase", cursor: "none", transition: "all 0.2s",
+                    letterSpacing: "0.14em", textTransform: "uppercase", transition: "all 0.2s",
                   }}
                 >
                   See work ↓
@@ -652,58 +641,9 @@ export default function Page7({ t }) {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ padding: "0 40px 100px", position: "relative", zIndex: 2 }}>
-        <div style={{
-          borderTop: "2px solid var(--ink)", paddingTop: 60,
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "end",
-        }}>
-          <div>
-            <div className="display" style={{ fontSize: "clamp(3rem,8vw,8rem)", lineHeight: 0.88, letterSpacing: "-0.02em" }}>
-              <HeatText as="div" baseTemp={0}>LET&apos;S</HeatText>
-              <HeatText as="div" baseTemp={0}>MAKE</HeatText>
-              <HeatText as="div" style={{ color: "#bbb" }} baseTemp={0}>SOMETHING</HeatText>
-              <HeatText as="div" baseTemp={0}>GREAT.</HeatText>
-            </div>
-          </div>
-          <div style={{ paddingBottom: 8 }}>
-            <p style={{ fontSize: 13, color: "#555", lineHeight: 1.85, marginBottom: 28, maxWidth: 380 }}>
-              Projenizi ve hedeflerinizi paylaşın. 24 saat içinde geri dönelim.
-            </p>
-            <div style={{ marginBottom: 28 }}>
-              <ThermalBar value={88} label="Response rate" delay={0.1} />
-              <ThermalBar value={94} label="Client satisfaction" delay={0.2} />
-              <ThermalBar value={76} label="On-time delivery" delay={0.3} />
-            </div>
-            <motion.button
-              whileHover={{ background: "var(--paper)", color: "var(--ink)" }}
-              style={{
-                background: "var(--ink)", color: "var(--paper)", border: "1px solid var(--ink)",
-                padding: "14px 30px", fontFamily: "IBM Plex Mono", fontSize: 11,
-                letterSpacing: "0.18em", textTransform: "uppercase", cursor: "none",
-                transition: "background 0.25s,color 0.25s", display: "flex", alignItems: "center", gap: 10,
-              }}
-            >
-              GET IN TOUCH →
-            </motion.button>
-          </div>
-        </div>
-      </section>
+     
 
-      {/* ── INTERNAL FOOTER ── */}
-      <footer style={{
-        borderTop: "1px solid var(--ink)", padding: "18px 40px",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        position: "relative", zIndex: 2,
-      }}>
-        <span className="display" style={{ fontSize: 18, letterSpacing: "0.08em" }}>BULLS STUDIO</span>
-        <span style={{ fontSize: 10, color: "#888", letterSpacing: "0.18em" }}>© 2026 — TR / GLOBAL</span>
-        <div style={{ display: "flex", gap: 28 }}>
-          {["Privacy", "Terms", "Twitter"].map((n) => (
-            <HeatText key={n} style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "#888" }}>{n}</HeatText>
-          ))}
-        </div>
-      </footer>
+     
     </div>
   );
 }

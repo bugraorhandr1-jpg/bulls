@@ -3,75 +3,7 @@ import {
   motion, useMotionValue, useSpring, useTransform,
   useScroll, AnimatePresence
 } from "framer-motion";
-
-/* ══════════════════════════════════════════════════
-   WEBGL SHADER — molten lava
-══════════════════════════════════════════════════ */
-function ShaderBG() {
-  const ref = useRef(null);
-  const mouse = useRef({ x: 0.5, y: 0.5 });
-  const target = useRef({ x: 0.5, y: 0.5 });
-  const frame = useRef(null);
-
-  const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
-  const FRAG = `
-    precision highp float;
-    uniform float T; uniform vec2 R; uniform vec2 M;
-    vec3 h3(vec2 p){vec3 q=vec3(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)),dot(p,vec2(419.2,371.9)));return fract(sin(q)*43758.5);}
-    float ns(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=dot(h3(i).xy,f),b=dot(h3(i+vec2(1,0)).xy,f-vec2(1,0)),c=dot(h3(i+vec2(0,1)).xy,f-vec2(0,1)),d=dot(h3(i+vec2(1,1)).xy,f-vec2(1,1));return mix(mix(a,b,u.x),mix(c,d,u.x),u.y)*.5+.5;}
-    float fbm(vec2 p){float v=0.,a=.5;mat2 r=mat2(.8,.6,-.6,.8);for(int i=0;i<6;i++){v+=a*ns(p);p=r*p*2.1+vec2(1.7,9.2);a*=.5;}return v;}
-    void main(){
-      vec2 uv=gl_FragCoord.xy/R, st=uv*vec2(R.x/R.y,1.), m=M*vec2(R.x/R.y,1.);
-      float t=T*.16;
-      vec2 q=vec2(fbm(st+t*.5),fbm(st+vec2(5.2,1.3)+t*.4));
-      vec2 r=vec2(fbm(st+2.*q+vec2(1.7,9.2)+t*.3),fbm(st+2.*q+vec2(8.3,2.8)+t*.28));
-      float f=(fbm(st+2.8*r+t*.22)+fbm(st+r+t))*.5;
-      float md=length(st-m); f+=.12*exp(-md*md*3.)*sin(md*16.-t*5.);
-      vec3 c=mix(vec3(.018,.008,.002),vec3(.52,.05,.008),smoothstep(.08,.44,f));
-      c=mix(c,vec3(.78,.32,.015),smoothstep(.42,.64,f));
-      c=mix(c,vec3(.97,.68,.06),smoothstep(.62,.82,f));
-      c=mix(c,vec3(1.,.95,.7),smoothstep(.80,1.,f));
-      vec2 vg=uv*(1.-uv.yx); c*=pow(vg.x*vg.y*15.,.3)*.65+.35; c*=.52;
-      gl_FragColor=vec4(c,1.);
-    }
-  `;
-
-  useEffect(() => {
-    const cv = ref.current;
-    const gl = cv.getContext("webgl", { antialias: true, alpha: false });
-    if (!gl) return;
-    const mk = (t, s) => { const x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x); return x; };
-    const pr = gl.createProgram();
-    gl.attachShader(pr, mk(gl.VERTEX_SHADER, VERT));
-    gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, FRAG));
-    gl.linkProgram(pr); gl.useProgram(pr);
-    const bf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, bf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
-    const al = gl.getAttribLocation(pr, "p");
-    gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
-    const uT = gl.getUniformLocation(pr,"T"), uR = gl.getUniformLocation(pr,"R"), uM = gl.getUniformLocation(pr,"M");
-    const resize = () => { cv.width = innerWidth; cv.height = innerHeight; gl.viewport(0,0,cv.width,cv.height); };
-    resize(); window.addEventListener("resize", resize);
-    const onMove = (e) => { target.current = { x: e.clientX/innerWidth, y: 1-e.clientY/innerHeight }; };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    let st = null;
-    const draw = ts => {
-      if (!st) st = ts;
-      mouse.current.x += (target.current.x - mouse.current.x) * .04;
-      mouse.current.y += (target.current.y - mouse.current.y) * .04;
-      gl.uniform1f(uT, (ts-st)*.001);
-      gl.uniform2f(uR, cv.width, cv.height);
-      gl.uniform2f(uM, mouse.current.x, mouse.current.y);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      frame.current = requestAnimationFrame(draw);
-    };
-    frame.current = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(frame.current); window.removeEventListener("resize", resize); window.removeEventListener("mousemove", onMove); };
-  }, []);
-
-  return <canvas ref={ref} style={{ position:"fixed", inset:0, zIndex:0, width:"100%", height:"100%", pointerEvents:"none" }} />;
-}
+import ShaderBG from "../components/ShaderBG";
 
 /* ══════════════════════════════════════════════════
    MAGNETIC BUTTON
@@ -115,7 +47,7 @@ function MagneticBtn({ children, style = {}, onClick, primary = false }) {
       onMouseMove={onMove}
       onMouseLeave={() => { x.set(0); y.set(0); setActive(false); }}
       onClick={onClick}
-      style={{ ...base, fontFamily:"IBM Plex Mono,monospace", textTransform:"uppercase", cursor:"none", transition:"box-shadow 0.3s,background 0.2s,color 0.2s,border-color 0.2s", x: sx, y: sy, display:"flex", alignItems:"center", gap:10, ...style }}
+      style={{ ...base, fontFamily:"IBM Plex Mono,monospace", textTransform:"uppercase", transition:"box-shadow 0.3s,background 0.2s,color 0.2s,border-color 0.2s", x: sx, y: sy, display:"flex", alignItems:"center", gap:10, ...style }}
       whileTap={{ scale: 0.95 }}
     >{children}</motion.button>
   );
@@ -255,112 +187,6 @@ function SlotCounter({ target, suffix = "", duration = 1800 }) {
 }
 
 /* ══════════════════════════════════════════════════
-   CURSOR — ember trail + morph
-══════════════════════════════════════════════════ */
-function P14Cursor() {
-  const mx = useMotionValue(-300), my = useMotionValue(-300);
-  const fx = useSpring(mx, { stiffness: 900, damping: 40, mass: 0.08 });
-  const fy = useSpring(my, { stiffness: 900, damping: 40, mass: 0.08 });
-  const rx = useSpring(mx, { stiffness: 90, damping: 24, mass: 0.9 });
-  const ry = useSpring(my, { stiffness: 90, damping: 24, mass: 0.9 });
-  const [ctx, setCtx] = useState("idle");
-  const [ripples, setRipples] = useState([]);
-  const [trail, setTrail] = useState([]);
-  const tId = useRef(0);
-
-  useEffect(() => {
-    const mv = e => {
-      mx.set(e.clientX); my.set(e.clientY);
-      const tid = ++tId.current;
-      setTrail(t => [...t.slice(-8), { x: e.clientX, y: e.clientY, id: tid }]);
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      if (!el) return;
-      const wrap = el.closest(".page14-wrap");
-      if (!wrap) { setCtx("idle"); return; }
-      if (el.closest("button,a,[data-mag]")) setCtx("hover");
-      else if (el.closest("h1,h2,h3")) setCtx("text");
-      else setCtx("idle");
-    };
-    const click = e => {
-      const id = Date.now();
-      setRipples(r => [...r, { x: e.clientX, y: e.clientY, id }]);
-      setTimeout(() => setRipples(r => r.filter(rx => rx.id !== id)), 700);
-    };
-    window.addEventListener("mousemove", mv);
-    window.addEventListener("click", click);
-    return () => { window.removeEventListener("mousemove", mv); window.removeEventListener("click", click); };
-  }, []);
-
-  return (
-    <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:99999 }}>
-      {trail.map((p, i) => (
-        <motion.div key={p.id}
-          initial={{ opacity: 0.7, scale: 1 }}
-          animate={{ opacity: 0, scale: 0.1 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          style={{
-            position:"fixed", left:p.x, top:p.y,
-            width: 3 + i * 0.5, height: 3 + i * 0.5,
-            borderRadius:"50%", translateX:"-50%", translateY:"-50%",
-            background: i % 2 === 0 ? "#e8220a" : "#f5a800",
-            filter: "blur(1.5px)", pointerEvents:"none",
-          }}
-        />
-      ))}
-
-      {ripples.map(r => (
-        <motion.div key={r.id}
-          initial={{ width: 0, height: 0, opacity: 0.8 }}
-          animate={{ width: 90, height: 90, opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            position:"fixed", left:r.x, top:r.y,
-            translateX:"-50%", translateY:"-50%",
-            border: "1.5px solid rgba(245,168,0,0.7)",
-            borderRadius:"50%", pointerEvents:"none",
-          }}
-        />
-      ))}
-
-      <motion.div style={{ position:"fixed", x:rx, y:ry, translateX:"-50%", translateY:"-50%", zIndex:1 }}>
-        <motion.div
-          animate={{
-            width: ctx === "hover" ? 58 : ctx === "text" ? 3 : 22,
-            height: ctx === "hover" ? 58 : ctx === "text" ? 3 : 22,
-            borderRadius: ctx === "text" ? "2px" : "50%",
-            borderColor: ctx === "hover" ? "rgba(245,168,0,0.7)" : "rgba(232,34,10,0.55)",
-            rotate: ctx === "hover" ? 45 : 0,
-            backgroundColor: ctx === "hover" ? "rgba(245,168,0,0.07)" : "transparent",
-          }}
-          transition={{ type:"spring", stiffness:180, damping:22 }}
-          style={{ border:"1.5px solid rgba(232,34,10,0.55)", display:"flex", alignItems:"center", justifyContent:"center" }}
-        >
-          <AnimatePresence>
-            {ctx === "hover" && (
-              <motion.span initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} exit={{opacity:0,scale:0}}
-                style={{ fontSize:11, color:"#f5a800", fontFamily:"monospace" }}>↗</motion.span>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </motion.div>
-
-      <motion.div style={{ position:"fixed", x:fx, y:fy, translateX:"-50%", translateY:"-50%", zIndex:2 }}>
-        <motion.div
-          animate={{
-            width: ctx === "text" ? 16 : ctx === "hover" ? 5 : 8,
-            height: ctx === "text" ? 3 : ctx === "hover" ? 5 : 8,
-            background: ctx === "hover" ? "#f5a800" : "#e8220a",
-            borderRadius: ctx === "text" ? "1px" : "50%",
-            boxShadow: `0 0 12px ${ctx === "hover" ? "#f5a800" : "#e8220a"}99`,
-          }}
-          transition={{ type:"spring", stiffness:450, damping:24 }}
-        />
-      </motion.div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════
    GLOW CARD — animated gradient border
 ══════════════════════════════════════════════════ */
 function GlowCard({ children, style = {} }) {
@@ -464,6 +290,42 @@ function WordMorph({ words }) {
   );
 }
 
+function heatColor(t) {
+  if (t < 40) return `hsl(${200 - t * 1.5},80%,45%)`;
+  if (t < 65) return `hsl(${140 - (t - 40) * 3.2},75%,42%)`;
+  if (t < 85) return `hsl(${60 - (t - 65) * 2.5},88%,48%)`;
+  return `hsl(${10 - (t - 85) * 0.5},92%,50%)`;
+}
+
+function ThermalText({ children, style = {}, as: Tag = "span", baseTemp = 6 }) {
+  const [hot, setHot] = useState(false);
+  const [temp, setTemp] = useState(baseTemp);
+
+  useEffect(() => {
+    if (hot) {
+      const id = setInterval(() => setTemp((t) => Math.min(100, t + 8)), 26);
+      return () => clearInterval(id);
+    }
+    const id = setInterval(() => setTemp((t) => Math.max(baseTemp, t - 4)), 36);
+    return () => clearInterval(id);
+  }, [hot, baseTemp]);
+
+  return (
+    <Tag
+      onMouseEnter={() => setHot(true)}
+      onMouseLeave={() => setHot(false)}
+      style={{
+        ...style,
+        color: temp > 8 ? heatColor(temp) : style.color,
+        textShadow: temp > 8 ? `0 0 ${Math.max(0, (temp - 20) * 0.25)}px ${heatColor(temp)}` : style.textShadow,
+        transition: "color 0.08s, text-shadow 0.08s",
+      }}
+    >
+      {children}
+    </Tag>
+  );
+}
+
 /* ══════════════════════════════════════════════════
    SCROLL PROGRESS
 ══════════════════════════════════════════════════ */
@@ -476,6 +338,78 @@ function P14ScrollBar() {
 /* ══════════════════════════════════════════════════
    PAGE 14 — Spells (WebGL + Magnetic + Tilt + Confetti + GlowCards)
 ══════════════════════════════════════════════════ */
+
+function ParticlePanel() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let raf = 0;
+    let particles = [];
+
+    const resize = () => {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.floor(rect.width));
+      canvas.height = Math.max(1, Math.floor(rect.height));
+      particles = Array.from({ length: 40 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        r: Math.random() * 1.8 + 0.6,
+      }));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x;
+          const dy = p.y - q.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 90) {
+            const a = (1 - d / 90) * 0.22;
+            ctx.strokeStyle = `rgba(245,168,0,${a})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+
+        ctx.fillStyle = "rgba(232,34,10,0.8)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    resize();
+    draw();
+    window.addEventListener("resize", resize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+      <canvas ref={canvasRef} style={{ width: "100%", height: "100%", display: "block" }} />
+    </div>
+  );
+}
 export default function Page14() {
   const { burst, Confetti } = useConfetti();
   const [scrolled, setScrolled] = useState(false);
@@ -483,15 +417,6 @@ export default function Page14() {
   const { scrollY } = useScroll();
   const heroOp = useTransform(scrollY, [0, 520], [1, 0]);
   const heroY  = useTransform(scrollY, [0, 520], [0, -100]);
-
-  useEffect(() => {
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  }, []);
 
   useEffect(() => {
     const s = () => setScrolled(window.scrollY > 50);
@@ -506,20 +431,32 @@ export default function Page14() {
 
   const words = ["Güçlü", "Hızlı", "Premium", "Akıllı"];
   const caps = ["Game Development","Mobil Uygulama","UI/UX Design","Backend & Cloud","Dijital Çözümler"];
+  const mobileCards = [
+    { badge: "Mobile UX", title: "Pulse Commerce", subtitle: "Checkout akışında mikro etkileşim ve yüksek dönüşüm odaklı ekran dili.", metric: "+38% CVR" },
+    { badge: "Product Speed", title: "Orbit Banking", subtitle: "Düşük gecikmeli veri katmanı ile premium ve akıcı mobil his.", metric: "78ms TTFB" },
+    { badge: "Retention", title: "Nova Health", subtitle: "Kişiselleştirilmiş bildirim ve davranış tabanlı ekran varyasyonları.", metric: "+27% Retention" },
+  ];
+  const showcaseRail = [
+    { category: "Fintech", title: "Neon Vault", year: "2026" },
+    { category: "Gaming", title: "Arena Drift", year: "2026" },
+    { category: "SaaS", title: "Signal Deck", year: "2025" },
+    { category: "Retail", title: "Flux Store", year: "2025" },
+  ];
+  const heroSignals = ["Particle Core", "Motion Rhythm", "Contrast Balance", "Mobile First", "Realtime Glow", "Performance Guard"];
 
   return (
-    <div className="page14-wrap" style={{ background:"#060402", color:"#ede8dc", fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden" }}>
+    <div className="page14-wrap bg-theme-tech" style={{ "--bg-theme-glow-strength":0.54, color:"#ede8dc", fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden", position:"relative" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@1,500;1,700&display=swap');
 
-        .page14-wrap * { cursor: none !important; }
         .page14-wrap ::selection { background:#e8220a; color:#fff; }
         .page14-wrap ::-webkit-scrollbar { width:2px; }
         .page14-wrap ::-webkit-scrollbar-thumb { background:linear-gradient(#e8220a,#f5a800); }
         .page14-wrap .D { font-family:'Bebas Neue',sans-serif; }
+        .page14-wrap .I { font-family:'Playfair Display',Georgia,serif; font-style:italic; }
 
         .page14-wrap .p14-noise {
-          position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.035;
+          position:fixed; inset:0; z-index:1; pointer-events:none; opacity:var(--bg-theme-noise-opacity,0.035);
           background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
           background-size:200px;
         }
@@ -544,12 +481,38 @@ export default function Page14() {
         .page14-wrap .p14-scroll-hint { position:absolute; bottom:28px; left:52px; display:flex; align-items:center; gap:12px; z-index:10; }
         .page14-wrap .p14-scroll-line { width:1px; height:44px; background:linear-gradient(180deg,transparent,rgba(232,34,10,0.9)); }
         .page14-wrap .p14-scroll-txt { font-size:8px; color:rgba(237,232,220,0.25); letter-spacing:0.3em; writing-mode:vertical-rl; }
+        .page14-wrap .p14-mobile-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2px; }
+        .page14-wrap .p14-mobile-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); padding:26px; position:relative; overflow:hidden; }
+        .page14-wrap .p14-mobile-card::after { content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:linear-gradient(90deg,#e8220a,#f5a800); opacity:.8; }
+
+        .page14-wrap .p14-rail { overflow-x:auto; overflow-y:hidden; padding-bottom:6px; }
+        .page14-wrap .p14-rail-track { display:flex; gap:2px; min-width:max-content; }
+        .page14-wrap .p14-rail-card { min-width:280px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); padding:24px; transition:transform .25s,border-color .25s; }
+        .page14-wrap .p14-rail-card:hover { transform:translateY(-4px); border-color:rgba(245,168,0,0.35); }
+
+        .page14-wrap .p14-signals-wrap { display:grid; grid-template-columns:1.1fr .9fr; gap:2px; }
+        .page14-wrap .p14-signals-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
+        .page14-wrap .p14-tag-chip { border:1px solid rgba(255,255,255,0.1); padding:6px 10px; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:rgba(237,232,220,0.45); background:rgba(255,255,255,0.02); }
+
+        @media (max-width: 1024px) {
+          .page14-wrap .p14-mobile-grid { grid-template-columns:1fr; }
+          .page14-wrap .p14-signals-wrap { grid-template-columns:1fr; }
+          .page14-wrap .p14-proc-grid { grid-template-columns:repeat(2,1fr); }
+          .page14-wrap .p14-proc-card:nth-child(2n) { border-right:none; }
+        }
+
+        @media (max-width: 768px) {
+          .page14-wrap .p14-section { padding:80px 20px; }
+          .page14-wrap .p14-footer { padding:16px 20px; flex-direction:column; gap:14px; align-items:flex-start; }
+          .page14-wrap .p14-proc-grid { grid-template-columns:1fr; }
+          .page14-wrap .p14-proc-card { border-right:none; border-bottom:1px solid rgba(255,255,255,0.07); }
+        }
       `}</style>
 
       <ShaderBG />
       <P14ScrollBar />
-      <P14Cursor />
       <Confetti />
+      <div className="bg-layer-glow" />
       <div className="p14-noise" />
 
       {/* ── HERO ── */}
@@ -582,7 +545,9 @@ export default function Page14() {
               {[{ t:"DİJİTAL", s:{ color:"#ede8dc" } }, { t:"DÜNYADA", s:{ WebkitTextStroke:"1.5px rgba(255,255,255,0.13)", color:"transparent" } }].map(({ t: txt, s }, i) => (
                 <div key={txt} style={{ overflow:"hidden", marginBottom:"0.03em" }}>
                   <motion.div initial={{ y:"110%" }} animate={{ y:0 }}
-                    transition={{ duration:1.05, delay:0.1+i*0.13, ease:[0.16,1,0.3,1] }} style={s}>{txt}</motion.div>
+                    transition={{ duration:1.05, delay:0.1+i*0.13, ease:[0.16,1,0.3,1] }} style={s}>
+                    <ThermalText baseTemp={i === 0 ? 8 : 12}>{txt}</ThermalText>
+                  </motion.div>
                 </div>
               ))}
               <div style={{ overflow:"hidden", marginBottom:"0.03em" }}>
@@ -595,7 +560,7 @@ export default function Page14() {
               <div style={{ overflow:"hidden" }}>
                 <motion.div initial={{ y:"110%" }} animate={{ y:0 }}
                   transition={{ duration:1.05, delay:0.5, ease:[0.16,1,0.3,1] }}
-                  style={{ color:"#ede8dc" }}>ÇÖZÜMLER</motion.div>
+                  style={{ color:"#ede8dc" }}><ThermalText baseTemp={7}>ÇÖZÜMLER</ThermalText></motion.div>
               </div>
             </div>
 
@@ -647,7 +612,7 @@ export default function Page14() {
                       initial={{ opacity:0, y:20, scale:0.94 }}
                       animate={{ opacity:1, y:0, scale:1 }}
                       transition={{ delay:0.5+i*0.1, duration:0.7 }}
-                      style={{ padding:"28px 22px", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", position:"relative", overflow:"hidden", transition:"background 0.3s,border-color 0.3s", cursor:"none" }}
+                      style={{ padding:"28px 22px", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", position:"relative", overflow:"hidden", transition:"background 0.3s,border-color 0.3s" }}
                       whileHover={{ background:"rgba(232,34,10,0.06)", borderColor:"rgba(232,34,10,0.22)" }}
                     >
                       <div style={{ fontSize:9, color:"rgba(237,232,220,0.2)", letterSpacing:"0.22em", marginBottom:14 }}>{sv.n}</div>
@@ -667,7 +632,7 @@ export default function Page14() {
                   <motion.span key={tag} initial={{ opacity:0, scale:0.8 }} animate={{ opacity:1, scale:1 }}
                     transition={{ delay:1.15+i*0.05 }}
                     whileHover={{ color:"#f5a800", borderColor:"rgba(245,168,0,0.4)" }}
-                    style={{ fontSize:9, color:"rgba(237,232,220,0.3)", letterSpacing:"0.14em", textTransform:"uppercase", border:"1px solid rgba(255,255,255,0.07)", padding:"4px 10px", transition:"all 0.2s", cursor:"none" }}>
+                    style={{ fontSize:9, color:"rgba(237,232,220,0.3)", letterSpacing:"0.14em", textTransform:"uppercase", border:"1px solid rgba(255,255,255,0.07)", padding:"4px 10px", transition:"all 0.2s" }}>
                     {tag}
                   </motion.span>
                 ))}
@@ -699,6 +664,97 @@ export default function Page14() {
         ))}
       </div>
 
+      {/* MOBILE SHOWCASE */}
+      <section className="p14-section bg-section-soft">
+        <div style={{ fontSize:9, color:"rgba(237,232,220,0.3)", letterSpacing:"0.28em", textTransform:"uppercase", marginBottom:14 }}>01 - Mobile Showcase</div>
+        <div className="D" style={{ fontSize:"clamp(2.4rem,6vw,5.8rem)", lineHeight:0.88, marginBottom:40, color:"#ede8dc" }}>
+          <CharReveal text="MOBILE POWER BLOCKS" />
+        </div>
+        <div className="p14-mobile-grid">
+          {mobileCards.map((card, idx) => (
+            <motion.div
+              key={card.title}
+              className="p14-mobile-card"
+              initial={{ opacity:0, y:16 }}
+              whileInView={{ opacity:1, y:0 }}
+              viewport={{ once:true }}
+              transition={{ delay:idx*0.08, duration:0.55 }}
+            >
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
+                <span style={{ fontSize:9, letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(237,232,220,0.3)" }}>{card.badge}</span>
+                <span style={{ fontSize:9, color:"rgba(245,168,0,0.8)", letterSpacing:"0.18em" }}>0{idx+1}</span>
+              </div>
+              <div className="D" style={{ fontSize:"1.8rem", letterSpacing:"0.05em" }}><ThermalText baseTemp={14}>{card.title}</ThermalText></div>
+              <p style={{ marginTop:6, fontSize:12, lineHeight:1.7, color:"rgba(237,232,220,0.42)" }}>{card.subtitle}</p>
+              <div className="I" style={{ marginTop:18, fontSize:18, color:"#f5a800", letterSpacing:"0.04em" }}>{card.metric}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* SHOWCASE RAIL */}
+      <section className="p14-section">
+        <div style={{ fontSize:9, color:"rgba(237,232,220,0.3)", letterSpacing:"0.28em", textTransform:"uppercase", marginBottom:14 }}>02 - Showcase Rail</div>
+        <div className="D" style={{ fontSize:"clamp(2.2rem,5.5vw,5.2rem)", lineHeight:0.88, marginBottom:32, color:"#ede8dc" }}>
+          <CharReveal text="SELECTED MOTION WORKS" />
+        </div>
+        <div className="p14-rail">
+          <div className="p14-rail-track">
+            {showcaseRail.map((item, idx) => (
+              <motion.article
+                key={item.title}
+                className="p14-rail-card"
+                whileHover={{ scale:1.02 }}
+                initial={{ opacity:0, y:16 }}
+                whileInView={{ opacity:1, y:0 }}
+                viewport={{ once:true }}
+                transition={{ delay:idx*0.07, duration:0.55 }}
+              >
+                <div style={{ display:"flex", justifyContent:"space-between", fontSize:9, letterSpacing:"0.18em", color:"rgba(237,232,220,0.3)", textTransform:"uppercase", marginBottom:16 }}>
+                  <span>{item.category}</span><span>{item.year}</span>
+                </div>
+                <div className="D" style={{ fontSize:"2rem", letterSpacing:"0.05em", marginBottom:8 }}><ThermalText baseTemp={10}>{item.title}</ThermalText></div>
+                <p style={{ fontSize:12, lineHeight:1.75, color:"rgba(237,232,220,0.42)" }}>Premium motion system with balanced contrast and rhythm.</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HERO SIGNALS */}
+      <section className="p14-section bg-section-soft">
+        <div className="p14-signals-wrap">
+          <div style={{ padding:"30px 26px", border:"1px solid rgba(255,255,255,0.08)", background:"rgba(255,255,255,0.02)" }}>
+            <div style={{ fontSize:9, color:"rgba(237,232,220,0.32)", letterSpacing:"0.24em", textTransform:"uppercase", marginBottom:16 }}>03 - Hero Signals</div>
+            <div className="D" style={{ fontSize:"clamp(2rem,5vw,4.2rem)", lineHeight:0.9, marginBottom:16, color:"#ede8dc" }}>LIVE SIGNAL LAYER</div>
+            <p style={{ fontSize:12, lineHeight:1.85, color:"rgba(237,232,220,0.42)", maxWidth:520 }}>A composed mix of mobile clarity, showcase depth, and particle atmosphere.</p>
+            <div className="p14-signals-tags">
+              {heroSignals.map((tag, idx) => (
+                <motion.span
+                  key={tag}
+                  className="p14-tag-chip"
+                  initial={{ opacity:0, scale:0.9 }}
+                  whileInView={{ opacity:1, scale:1 }}
+                  viewport={{ once:true }}
+                  transition={{ delay:idx*0.05 }}
+                  whileHover={{ color:"#f5a800", borderColor:"rgba(245,168,0,0.45)" }}
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+          <div style={{ position:"relative", minHeight:320, border:"1px solid rgba(255,255,255,0.08)", background:"rgba(8,6,4,0.8)", overflow:"hidden" }}>
+            <ParticlePanel />
+            <div style={{ position:"absolute", inset:0, display:"grid", placeItems:"center" }}>
+              <div style={{ textAlign:"center", padding:"12px 14px", border:"1px solid rgba(245,168,0,0.25)", background:"rgba(12,9,6,0.72)", fontSize:10, letterSpacing:"0.18em", textTransform:"uppercase", color:"rgba(245,168,0,0.9)" }}>
+                Particle Hero Core
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── WHY US — GLOW CARDS ── */}
       <section className="p14-section">
         <motion.div initial={{ opacity:0, y:10 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
@@ -718,7 +774,7 @@ export default function Page14() {
               <GlowCard>
                 <div style={{ padding:"36px 32px" }}>
                   <div style={{ fontSize:24, marginBottom:16 }}>{w.icon}</div>
-                  <div className="D" style={{ fontSize:"1.5rem", letterSpacing:"0.06em", marginBottom:10, color:"#ede8dc" }}>{w.t}</div>
+                  <div className="D" style={{ fontSize:"1.5rem", letterSpacing:"0.06em", marginBottom:10 }}><ThermalText baseTemp={12}>{w.t}</ThermalText></div>
                   <p style={{ fontSize:12, color:"rgba(237,232,220,0.4)", lineHeight:1.85 }}>{w.d}</p>
                 </div>
               </GlowCard>
@@ -728,7 +784,7 @@ export default function Page14() {
       </section>
 
       {/* ── PROCESS ── */}
-      <section className="p14-section" style={{ background:"rgba(0,0,0,0.12)" }}>
+      <section className="p14-section bg-section-hard">
         <motion.div initial={{ opacity:0, y:10 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           style={{ fontSize:9, color:"rgba(237,232,220,0.3)", letterSpacing:"0.28em", textTransform:"uppercase", marginBottom:14 }}>§ 02 — Süreç</motion.div>
         <div className="D" style={{ fontSize:"clamp(2.8rem,7vw,7.5rem)", lineHeight:0.86, marginBottom:60 }}>
@@ -746,7 +802,7 @@ export default function Page14() {
               viewport={{ once:true }} transition={{ delay:i*0.1, duration:0.65 }}>
               <div className="D" style={{ fontSize:54, color:"rgba(255,255,255,0.04)", lineHeight:1, marginBottom:16 }}>{s.n}</div>
               <div style={{ fontSize:26, marginBottom:14 }}>{s.e}</div>
-              <div className="D" style={{ fontSize:"1.3rem", letterSpacing:"0.05em", marginBottom:10, background:"linear-gradient(110deg,#ede8dc,#f5a800)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>{s.t}</div>
+              <div className="D" style={{ fontSize:"1.3rem", letterSpacing:"0.05em", marginBottom:10 }}><ThermalText baseTemp={11}>{s.t}</ThermalText></div>
               <p style={{ fontSize:11, color:"rgba(237,232,220,0.36)", lineHeight:1.85 }}>{s.d}</p>
             </motion.div>
           ))}
@@ -778,26 +834,13 @@ export default function Page14() {
           </div>
         </div>
       </motion.div>
-
-      {/* ── FOOTER ── */}
-      <div className="p14-footer">
-        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-          <div style={{ width:24, height:24, background:"linear-gradient(135deg,#e8220a,#f5a800)", clipPath:"polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)", display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <span className="D" style={{ fontSize:11, color:"#fff" }}>B</span>
-          </div>
-          <div>
-            <span className="D" style={{ fontSize:15, letterSpacing:"0.1em" }}>BULLS DIGITAL HOUSE</span>
-            <div style={{ fontSize:8, color:"rgba(237,232,220,0.28)", letterSpacing:"0.22em" }}>MOBILE · DESIGN · GROWTH</div>
-          </div>
-        </div>
-        <span style={{ fontSize:9, color:"rgba(237,232,220,0.25)", letterSpacing:"0.22em" }}>© 2026 — ISTANBUL / GLOBAL</span>
-        <div style={{ display:"flex", gap:26 }}>
-          {["Gizlilik","Koşullar","Instagram","LinkedIn"].map(n => (
-            <motion.span key={n} whileHover={{ color:"#f5a800" }}
-              style={{ fontSize:9, letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(237,232,220,0.26)", transition:"color 0.18s", cursor:"none" }}>{n}</motion.span>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
+
+
+
+
+
+
+

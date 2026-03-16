@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 
 /* ── PALETTE ── */
 const C = {
@@ -25,58 +25,6 @@ const WORKS = [
 const CAPS = ["React Native","iOS","Android","UI/UX","ASO","Firebase","Figma","Redux","Performance","Strategy"];
 const NUMBERS = [["18+","Apps launched"],["4.9★","App Store avg."],["24/7","Live support"],["3yr","Track record"]];
 
-/* ── MAGNETIC CURSOR ── */
-function P10Cursor() {
-  const cx = useMotionValue(-100), cy = useMotionValue(-100);
-  const sx = useSpring(cx,{stiffness:180,damping:18,mass:0.3});
-  const sy = useSpring(cy,{stiffness:180,damping:18,mass:0.3});
-  const [size, setSize] = useState(14);
-  const [label, setLabel] = useState("");
-  const [blend, setBlend] = useState("normal");
-
-  useEffect(()=>{
-    const mv = e => { cx.set(e.clientX); cy.set(e.clientY); };
-    window.addEventListener("mousemove", mv);
-
-    const enter = e => {
-      const lbl = e.currentTarget.dataset.p10cursor || "";
-      setLabel(lbl); setSize(lbl ? 72 : 44); setBlend("difference");
-    };
-    const leave = () => { setLabel(""); setSize(14); setBlend("normal"); };
-
-    const els = document.querySelectorAll("[data-p10cursor]");
-    els.forEach(el => {
-      el.addEventListener("mouseenter", enter);
-      el.addEventListener("mouseleave", leave);
-    });
-    return () => {
-      window.removeEventListener("mousemove", mv);
-      els.forEach(el => {
-        el.removeEventListener("mouseenter", enter);
-        el.removeEventListener("mouseleave", leave);
-      });
-    };
-  },[]);
-
-  return (
-    <motion.div
-      style={{ x: sx, y: sy, position:"fixed", zIndex:9999, pointerEvents:"none",
-        translateX:"-50%", translateY:"-50%",
-        width: size, height: size,
-        borderRadius: "50%",
-        border: `1px solid ${C.gold}`,
-        background: size > 20 ? `${C.gold}22` : "transparent",
-        display:"flex", alignItems:"center", justifyContent:"center",
-        mixBlendMode: blend,
-      }}
-      animate={{ width: size, height: size }}
-      transition={{ type:"spring", stiffness:280, damping:22 }}
-    >
-      {label && <span style={{ fontSize:10, color:C.gold, letterSpacing:"0.14em", fontFamily:"monospace", whiteSpace:"nowrap" }}>{label}</span>}
-    </motion.div>
-  );
-}
-
 /* ── SPLIT TEXT REVEAL ── */
 function SplitReveal({ text, delay=0, style={} }) {
   const words = text.split(" ");
@@ -100,7 +48,7 @@ function SplitReveal({ text, delay=0, style={} }) {
 /* ── GRAIN ── */
 function P10Grain() {
   return (
-    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:0.07}}>
+    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:"var(--bg-theme-noise-opacity)"}}>
       <filter id="p10gr">
         <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/>
         <feColorMatrix type="saturate" values="0"/>
@@ -329,27 +277,18 @@ export default function Page10() {
     t(); const id=setInterval(t,1000); return()=>clearInterval(id);
   },[]);
 
-  useEffect(()=>{
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  },[]);
-
   return (
-    <div className="page10-mobile" style={{ background:C.bg, color:C.white, fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden" }}>
+    <div className="page10-mobile bg-theme-tech" style={{ color:C.white, fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden", position:"relative", "--bg-theme-glow-strength":0.68 }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
         .page10-mobile .D{font-family:'Bebas Neue',sans-serif}
         .page10-mobile .I{font-family:'Playfair Display',Georgia,serif;font-style:italic}
         .page10-mobile section{position:relative;z-index:2}
-        .page10-mobile *{cursor:none!important}
         .page10-mobile ::selection{background:${C.red};color:#fff}
       `}</style>
 
-      <P10Cursor/>
+      <div className="bg-layer-grid" />
+      <div className="bg-layer-glow" />
       <P10Grain/>
 
       {/* ═══ HERO ═══ */}
@@ -506,10 +445,10 @@ export default function Page10() {
       </section>
 
       {/* ═══ NUMBERS BAND ═══ */}
-      <section style={{
+      <section className="bg-section-soft" style={{
         padding:"80px 44px",
         borderTop:`1px solid ${C.b2}`,borderBottom:`1px solid ${C.b2}`,
-        background:C.card,position:"relative",zIndex:2,overflow:"hidden"
+        position:"relative",zIndex:2,overflow:"hidden"
       }}>
         <div style={{position:"absolute",inset:0,pointerEvents:"none",
           background:`radial-gradient(ellipse at 20% 50%,${C.red}14,transparent 55%),radial-gradient(ellipse at 80% 50%,${C.gold}10,transparent 55%)`}}/>
@@ -591,7 +530,7 @@ export default function Page10() {
       </section>
 
       {/* ═══ PROCESS ═══ */}
-      <section style={{padding:"100px 44px",background:C.card,
+      <section className="bg-section-hard" style={{padding:"100px 44px",
         borderTop:`1px solid ${C.b2}`,borderBottom:`1px solid ${C.b2}`}}>
         <motion.div initial={{opacity:0,y:12}} whileInView={{opacity:1,y:0}} viewport={{once:true}}
           style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:9,color:C.muted,

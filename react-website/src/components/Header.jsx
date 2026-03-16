@@ -10,6 +10,9 @@ function Header({ t, currentLang, onLanguageChange, isHome }) {
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
   const location = useLocation();
+  const thermalRoutes = ['/thermal', '/spells', '/showcase', '/particle', '/hero', '/mobile', '/digital-house', '/landing'];
+  const isThermalContext = thermalRoutes.includes(location.pathname);
+  const isSpells = location.pathname === '/spells';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +44,8 @@ function Header({ t, currentLang, onLanguageChange, isHome }) {
         !headerVisible ? 'header-hidden' : '',
         isHome ? 'header-home' : '',
         isHome && !scrolled ? 'header-transparent' : '',
+        isThermalContext ? 'header-thermal' : '',
+        isSpells ? 'header-spells' : '',
       ].filter(Boolean).join(' ')}
     >
       <nav className="navbar">

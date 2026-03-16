@@ -71,7 +71,7 @@ function Page4({ t }) {
       ];
 
   return (
-    <section className="page-section alternate">
+    <section className="page-section alternate bg-theme-tech">
       <div className="container">
         <div className="page-hero about-page-hero">
           <div className="hero-animation about-animation">

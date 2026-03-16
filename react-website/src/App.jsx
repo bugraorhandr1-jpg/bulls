@@ -1,24 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Page1 from './pages/Page1';
-import Page3 from './pages/Page3';
-import Page4 from './pages/Page4';
-import Page5 from './pages/Page5';
-import Page6 from './pages/Page6';
-import Page7 from './pages/Page7';
-import Page8 from './pages/Page8';
-import Page9 from './pages/Page9';
-import Page10 from './pages/Page10';
-import Page11 from './pages/Page11';
-import Page12 from './pages/Page12';
-import Page13 from './pages/Page13';
-import Page14 from './pages/Page14';
-import NotFound from './pages/NotFound';
-import ComingSoon from './pages/ComingSoon';
-import Lanyard from './pages/deneme';
+import GlobalCursor from './components/GlobalCursor';
 import { translations } from './translations';
+
+const Page1 = lazy(() => import('./pages/Page1'));
+const Page3 = lazy(() => import('./pages/Page3'));
+const Page4 = lazy(() => import('./pages/Page4'));
+const Page5 = lazy(() => import('./pages/Page5'));
+const Page6 = lazy(() => import('./pages/Page6'));
+const Page7 = lazy(() => import('./pages/Page7'));
+const Page8 = lazy(() => import('./pages/Page8'));
+const Page9 = lazy(() => import('./pages/Page9'));
+const Page10 = lazy(() => import('./pages/Page10'));
+const Page11 = lazy(() => import('./pages/Page11'));
+const Page12 = lazy(() => import('./pages/Page12'));
+const Page13 = lazy(() => import('./pages/Page13'));
+const Page14 = lazy(() => import('./pages/Page14'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const ComingSoon = lazy(() => import('./pages/ComingSoon'));
+const Lanyard = lazy(() => import('./pages/deneme'));
+
+function RouteFallback() {
+  return (
+    <div
+      className="bg-theme-tech"
+      style={{
+        width: '100%',
+        minHeight: '100vh',
+        background: 'var(--bg-theme-core)',
+        color: '#8a8177',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      Loading content...
+    </div>
+  );
+}
 
 function AppContent() {
   const [currentLang, setCurrentLang] = useState('tr');
@@ -49,26 +70,47 @@ function AppContent() {
 
   return (
     <div className={`app ${isHome ? 'home-page' : ''}`}>
+      <GlobalCursor />
       {!hideChrome && <Header t={t} currentLang={currentLang} onLanguageChange={handleLanguageChange} isHome={isHome} />}
       
-      <Routes>
-        <Route path="/" element={<Page6 t={t} />} />
-        <Route path="/gaming" element={<Page1 t={t} />} />
-        <Route path="/advertising" element={<Page3 t={t} />} />
-        <Route path="/about" element={<Page4 t={t} />} />
-        <Route path="/landing" element={<Page5 />} />
-        <Route path="/thermal" element={<Page7 t={t} />} />
-        <Route path="/studio" element={<Page8 t={t} />} />
-        <Route path="/digital-house" element={<Page9 t={t} />} />
-        <Route path="/mobile" element={<Page10 t={t} />} />
-        <Route path="/showcase" element={<Page11 t={t} />} />
-        <Route path="/particle" element={<Page12 t={t} />} />
-        <Route path="/hero" element={<Page13 t={t} />} />
-        <Route path="/spells" element={<Page14 />} />
-        <Route path="/coming-soon" element={<ComingSoon />} />
-        <Route path="/deneme" element={<div style={{ position: 'relative', width: '100vw', height: '100vh', background: '#060402', overflow: 'hidden' }}><Lanyard /></div>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
+          <Route path="/" element={<Page6 t={t} />} />
+          <Route path="/gaming" element={<Page1 t={t} />} />
+          <Route path="/advertising" element={<Page3 t={t} />} />
+          <Route path="/about" element={<Page4 t={t} />} />
+          <Route path="/landing" element={<Page5 />} />
+          <Route path="/thermal" element={<Page7 t={t} />} />
+          <Route path="/studio" element={<Page8 t={t} />} />
+          <Route path="/digital-house" element={<Page9 t={t} />} />
+          <Route path="/mobile" element={<Page10 t={t} />} />
+          <Route path="/showcase" element={<Page11 t={t} />} />
+          <Route path="/particle" element={<Page12 t={t} />} />
+          <Route path="/hero" element={<Page13 t={t} />} />
+          <Route path="/spells" element={<Page14 />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route
+            path="/deneme"
+            element={(
+              <div
+                className="bg-theme-tech"
+                style={{
+                  '--bg-theme-glow-strength': 0.52,
+                  position: 'relative',
+                  width: '100vw',
+                  height: '100vh',
+                  background: 'var(--bg-theme-core)',
+                  overflow: 'hidden',
+                }}
+              >
+                <div className="bg-layer-glow" />
+                <Lanyard />
+              </div>
+            )}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       {!isHome && !hideChrome && <Footer t={t} />}
     </div>
   );

@@ -73,7 +73,7 @@ function P11Cursor() {
 /* ── NOISE ── */
 function P11Grain(){
   return(
-    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:0.065}}>
+    <svg style={{position:"fixed",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:1,opacity:"var(--bg-theme-noise-opacity)"}}>
       <filter id="p11gr"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
       <feColorMatrix type="saturate" values="0"/></filter>
       <rect width="100%" height="100%" filter="url(#p11gr)"/>
@@ -141,7 +141,7 @@ function MagBtn({children,style={},onClick}){
     <motion.button ref={ref} data-p11cur="link"
       onMouseMove={move} onMouseLeave={reset}
       onClick={onClick}
-      style={{x:bsx,y:bsy,...style,cursor:"none"}}
+      style={{x:bsx,y:bsy,...style}}
       whileTap={{scale:0.95}}>
       {children}
     </motion.button>
@@ -185,13 +185,13 @@ function WorkScroller(){
             <motion.button key={i} onClick={()=>goTo(i)}
               animate={{width:active===i?32:8,background:active===i?C.gold:C.b3}}
               transition={{duration:0.4,ease:[0.16,1,0.3,1]}}
-              style={{height:3,border:"none",borderRadius:999,cursor:"none",padding:0}}/>
+              style={{height:3,border:"none",borderRadius:999,padding:0}}/>
           ))}
         </div>
       </div>
 
       <div ref={trackRef} style={{display:"flex",gap:2,paddingLeft:52,overflowX:"auto",
-        scrollbarWidth:"none",cursor:"none"}} data-p11cur="drag">
+        scrollbarWidth:"none"}} data-p11cur="drag">
         {WORKS.map((w,i)=>(
           <motion.div key={w.id}
             onMouseEnter={()=>{setHov(i);setActive(i);}}
@@ -203,7 +203,7 @@ function WorkScroller(){
             animate={{width:hov===i?"480px":"260px"}}
             style={{minWidth:hov===i?"480px":"260px",height:560,
               position:"relative",overflow:"hidden",flexShrink:0,
-              border:`1px solid ${C.b2}`,cursor:"none",
+              border:`1px solid ${C.b2}`,
               transition:"min-width 0.6s cubic-bezier(0.16,1,0.3,1)"
             }}>
             <motion.div animate={{scale:hov===i?1:1.08}}
@@ -339,7 +339,7 @@ function HeroFrames(){
           style={{...f.style,position:"absolute",width:f.w,
             animation:`${f.float} ${7+i*1.5}s ease-in-out infinite`,
             boxShadow:`0 40px 100px rgba(0,0,0,0.75),0 0 0 1px ${C.b2},0 0 60px ${i===0?C.red+"22":C.gold+"11"}`,
-            overflow:"hidden",cursor:"none",zIndex:i+1}}>
+            overflow:"hidden",zIndex:i+1}}>
 
           <img src={f.src} alt="" style={{width:"100%",display:"block",
             filter:"grayscale(45%) contrast(1.1) brightness(0.75) saturate(0.7)"}}
@@ -416,7 +416,7 @@ function ServicesAccordion(){
           <motion.div key={s.n}
             data-p11cur={open===i?"drag":"view"}
             onClick={()=>setOpen(open===i?-1:i)}
-            style={{borderBottom:`1px solid ${C.b2}`,cursor:"none",overflow:"hidden"}}>
+            style={{borderBottom:`1px solid ${C.b2}`,overflow:"hidden"}}>
 
             <div style={{display:"grid",gridTemplateColumns:"56px 1fr auto 56px",
               alignItems:"center",gap:24,padding:"28px 0",position:"relative"}}>
@@ -572,7 +572,7 @@ function ProcessSection(){
             viewport={{once:true}} transition={{delay:i*0.1,duration:0.7,ease:[0.16,1,0.3,1]}}
             whileHover="hov"
             style={{borderRight:i<3?`1px solid ${C.b2}`:"none",
-              padding:36,position:"relative",overflow:"hidden",cursor:"none"}}>
+              padding:36,position:"relative",overflow:"hidden"}}>
 
             <motion.div variants={{hov:{scaleX:1},rest:{scaleX:0}}} initial="rest"
               transition={{duration:0.5,ease:[0.16,1,0.3,1]}}
@@ -628,30 +628,21 @@ export default function Page11() {
     t(); const id=setInterval(t,1000); return()=>clearInterval(id);
   },[]);
 
-  useEffect(()=>{
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  },[]);
-
   return(
-    <div className="page11-wrap" style={{background:C.bg,color:C.white,fontFamily:"'IBM Plex Mono',monospace",overflowX:"hidden"}}>
+    <div className="page11-wrap bg-theme-tech" style={{"--bg-theme-glow-strength":0.82,color:C.white,fontFamily:"'IBM Plex Mono',monospace",overflowX:"hidden",position:"relative"}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
         .page11-wrap .p11-D{font-family:'Bebas Neue',sans-serif}
         .page11-wrap .p11-I{font-family:'Playfair Display',Georgia,serif;font-style:italic}
         .page11-wrap section{position:relative;z-index:2}
-        .page11-wrap *{cursor:none!important}
         .page11-wrap ::selection{background:${C.red};color:#fff}
         @keyframes p11float0{0%,100%{transform:translateY(0px) rotate(-6deg)}50%{transform:translateY(-18px) rotate(-6deg)}}
         @keyframes p11float1{0%,100%{transform:translateY(-10px) rotate(5deg)}50%{transform:translateY(10px) rotate(5deg)}}
         @keyframes p11float2{0%,100%{transform:translateY(0px) rotate(2deg)}50%{transform:translateY(-14px) rotate(2deg)}}
       `}</style>
 
-      <P11Cursor/>
+      <div className="bg-layer-grid" />
+      <div className="bg-layer-glow" />
       <P11Grain/>
 
       {/* ═══ HERO ═══ */}

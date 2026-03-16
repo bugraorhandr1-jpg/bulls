@@ -49,62 +49,19 @@ export default function NotFound() {
   return (
     <div
       ref={containerRef}
-      className="notfound-page"
+      className="notfound-page bg-theme-tech"
       style={{
+        "--bg-theme-glow-strength": 0.48,
         width: "100%",
         height: "100vh",
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Inter', 'IBM Plex Mono', monospace",
-        background: "#060402",
-        cursor: "none",
+        background: "var(--bg-theme-core)",
         marginTop: "-82px",
       }}
     >
-      {/* Custom cursor — flashlight torch */}
-      <motion.div
-        style={{
-          position: "absolute",
-          zIndex: 9999,
-          pointerEvents: "none",
-          left: mouse.x,
-          top: mouse.y,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-      >
-        <motion.div
-          animate={{
-            width: radius * 2,
-            height: radius * 2,
-            opacity: entered ? 1 : 0,
-          }}
-          transition={{ type: "spring", stiffness: 180, damping: 24 }}
-          style={{
-            borderRadius: "50%",
-            border: "1px solid rgba(245,168,0,0.12)",
-            position: "absolute",
-            translateX: "-50%",
-            translateY: "-50%",
-            left: "50%",
-            top: "50%",
-          }}
-        />
-        <div
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#f5a800",
-            boxShadow: "0 0 12px 4px rgba(245,168,0,0.6)",
-            position: "absolute",
-            translateX: "-50%",
-            translateY: "-50%",
-            left: "50%",
-            top: "50%",
-          }}
-        />
-      </motion.div>
+      <div className="bg-layer-glow" />
 
       {/* Background photo */}
       <div
@@ -136,7 +93,7 @@ export default function NotFound() {
           inset: 0,
           zIndex: 3,
           pointerEvents: "none",
-          opacity: 0.04,
+          opacity: "var(--bg-theme-noise-opacity, 0.04)",
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "200px",
         }}
@@ -269,7 +226,6 @@ export default function NotFound() {
                   textTransform: "uppercase",
                   boxShadow: "0 0 36px rgba(232,34,10,0.3)",
                   transition: "all 0.2s",
-                  cursor: "none",
                 }}
               >
                 ANA SAYFAYA DÖN ↗
@@ -294,7 +250,6 @@ export default function NotFound() {
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   transition: "all 0.2s",
-                  cursor: "none",
                 }}
               >
                 İLETİŞİM

@@ -27,7 +27,7 @@ function Page1({ t }) {
       ];
 
   return (
-    <section className="page-section">
+    <section className="page-section bg-theme-tech">
       <div className="container">
         <div className="page-hero gaming-page-hero">
           {/* Animated Background - Energy Lines */}

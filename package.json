@@ -6,6 +6,8 @@
     "@react-three/fiber": "^9.5.0",
     "@react-three/rapier": "^2.2.0",
     "framer-motion": "^12.36.0",
+    "matter-js": "^0.20.0",
+    "motion": "^12.36.0",
     "three": "^0.183.2"
   }
 }

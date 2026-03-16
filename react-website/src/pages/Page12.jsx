@@ -169,7 +169,7 @@ function P12Cursor() {
 ════════════════════════════════ */
 function P12Grain() {
   return (
-    <svg style={{ position:"fixed", inset:0, width:"100%", height:"100%", pointerEvents:"none", zIndex:1, opacity:0.055 }}>
+    <svg style={{ position:"fixed", inset:0, width:"100%", height:"100%", pointerEvents:"none", zIndex:1, opacity:"var(--bg-theme-noise-opacity)" }}>
       <filter id="p12gr"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
       <rect width="100%" height="100%" filter="url(#p12gr)" />
     </svg>
@@ -375,7 +375,7 @@ function WorksSection() {
               style={{
                 padding:"32px 56px", borderBottom:`1px solid ${C.b2}`,
                 display:"grid", gridTemplateColumns:"56px 1fr 100px 40px",
-                alignItems:"center", gap:24, cursor:"none",
+                alignItems:"center", gap:24,
                 position:"relative", overflow:"hidden",
               }}>
               <motion.div animate={{ scaleX: hov === i ? 1 : 0 }}
@@ -459,7 +459,7 @@ function HeroFrames() {
             animate={{ opacity:1, y:0, rotate:f.rot }}
             transition={{ duration:1.3, delay:f.delay+0.4, ease:[0.16,1,0.3,1] }}
             whileHover={{ y:-18, scale:1.04, rotate:0, zIndex:20 }}
-            style={{ ...f.style, position:"absolute", width:f.w, cursor:"none", zIndex:i+1 }}>
+            style={{ ...f.style, position:"absolute", width:f.w, zIndex:i+1 }}>
             <motion.div style={{ y, boxShadow:`0 40px 100px rgba(0,0,0,0.75),0 0 0 1px ${C.b2}`, overflow:"hidden" }}>
               <img src={f.src} alt=""
                 style={{ width:"100%", display:"block", filter:"grayscale(40%) contrast(1.1) brightness(0.72) saturate(0.75)" }}
@@ -518,7 +518,7 @@ function ServicesSection() {
         {svcs.map((s, i) => (
           <div key={s.n} data-p12cur={open === i ? "" : "view"}
             onClick={() => setOpen(open === i ? -1 : i)}
-            style={{ borderBottom:`1px solid ${C.b2}`, cursor:"none", overflow:"hidden" }}>
+            style={{ borderBottom:`1px solid ${C.b2}`, overflow:"hidden" }}>
             <div style={{ display:"grid", gridTemplateColumns:"56px 1fr auto 56px", alignItems:"center", gap:24, padding:"28px 0", position:"relative" }}>
               <span style={{ fontFamily:"monospace", fontSize:9, color: open===i ? C.gold : C.muted, letterSpacing:"0.22em", transition:"color 0.3s" }}>{s.n}</span>
               <div style={{ display:"flex", alignItems:"center", gap:20 }}>
@@ -596,30 +596,21 @@ export default function Page12() {
     t(); const id = setInterval(t, 1000); return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  }, []);
-
   return (
-    <div className="page12-wrap" style={{ background:C.bg, color:C.white, fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden" }}>
+    <div className="page12-wrap bg-theme-tech" style={{ "--bg-theme-glow-strength":0.88, color:C.white, fontFamily:"'IBM Plex Mono',monospace", overflowX:"hidden", position:"relative" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
         .page12-wrap .p12-D{font-family:'Bebas Neue',sans-serif}
         .page12-wrap section{position:relative;z-index:2}
-        .page12-wrap *{cursor:none!important}
         .page12-wrap ::selection{background:${C.red};color:#fff}
         .page12-wrap::-webkit-scrollbar{width:2px}
         .page12-wrap::-webkit-scrollbar-thumb{background:${C.red}}
       `}</style>
 
       <ParticleField />
+      <div className="bg-layer-grid" />
+      <div className="bg-layer-glow" />
       <P12ScrollBar />
-      <P12Cursor />
       <P12Grain />
 
       {/* ── HERO ── */}
@@ -676,12 +667,12 @@ export default function Page12() {
               <motion.button data-p12cur="link"
                 whileHover={{ background:C.redHot, boxShadow:`0 0 50px ${C.red}55` }}
                 whileTap={{ scale:0.97 }}
-                style={{ background:C.red, color:"#fff", border:"none", padding:"15px 30px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", display:"flex", alignItems:"center", gap:10, boxShadow:`0 0 40px ${C.red}44`, transition:"all 0.2s", cursor:"none" }}>
+                style={{ background:C.red, color:"#fff", border:"none", padding:"15px 30px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", display:"flex", alignItems:"center", gap:10, boxShadow:`0 0 40px ${C.red}44`, transition:"all 0.2s" }}>
                 START A PROJECT →
               </motion.button>
               <motion.button data-p12cur="link"
                 whileHover={{ borderColor:C.gold, color:C.gold }}
-                style={{ background:"transparent", color:C.muted, border:`1px solid ${C.b2}`, padding:"15px 28px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", transition:"all 0.22s", cursor:"none" }}>
+                style={{ background:"transparent", color:C.muted, border:`1px solid ${C.b2}`, padding:"15px 28px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", transition:"all 0.22s" }}>
                 SEE WORK ↓
               </motion.button>
             </motion.div>
@@ -748,7 +739,7 @@ export default function Page12() {
               initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
               viewport={{ once:true }} transition={{ delay:i*0.1, duration:0.7 }}
               whileHover="hov"
-              style={{ borderRight: i<3 ? `1px solid ${C.b2}` : "none", padding:32, position:"relative", overflow:"hidden", cursor:"none" }}>
+              style={{ borderRight: i<3 ? `1px solid ${C.b2}` : "none", padding:32, position:"relative", overflow:"hidden" }}>
               <motion.div variants={{ hov:{ opacity:1 }, rest:{ opacity:0 } }} initial="rest" transition={{ duration:0.5 }}
                 style={{ position:"absolute", inset:0, background:`radial-gradient(ellipse at 50% 100%,${C.red}18,transparent 65%)`, zIndex:0 }} />
               <motion.div variants={{ hov:{ scaleX:1 }, rest:{ scaleX:0 } }} initial="rest" transition={{ duration:0.55 }}
@@ -804,11 +795,11 @@ export default function Page12() {
             <div style={{ display:"flex", gap:10, marginTop:28 }}>
               <motion.button data-p12cur="link" whileHover={{ background:C.redHot, boxShadow:`0 0 50px ${C.red}55` }}
                 whileTap={{ scale:0.97 }}
-                style={{ background:C.red, color:"#fff", border:"none", padding:"16px 30px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", display:"flex", alignItems:"center", gap:10, boxShadow:`0 0 40px ${C.red}44`, transition:"all 0.2s", cursor:"none" }}>
+                style={{ background:C.red, color:"#fff", border:"none", padding:"16px 30px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", display:"flex", alignItems:"center", gap:10, boxShadow:`0 0 40px ${C.red}44`, transition:"all 0.2s" }}>
                 START NOW →
               </motion.button>
               <motion.button data-p12cur="link" whileHover={{ color:C.gold, borderColor:C.gold }}
-                style={{ background:"transparent", color:C.muted, border:`1px solid ${C.b2}`, padding:"16px 24px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", transition:"all 0.2s", cursor:"none" }}>
+                style={{ background:"transparent", color:C.muted, border:`1px solid ${C.b2}`, padding:"16px 24px", fontFamily:"'IBM Plex Mono',monospace", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", transition:"all 0.2s" }}>
                 PORTFOLIO ↗
               </motion.button>
             </div>

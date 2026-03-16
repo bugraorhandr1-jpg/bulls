@@ -349,15 +349,6 @@ export default function Page5() {
   const heroOp = useTransform(scrollY, [0, 500], [1, 0]);
 
   useEffect(() => {
-    document.documentElement.style.cursor = "none";
-    document.body.style.cursor = "none";
-    return () => {
-      document.documentElement.style.cursor = "";
-      document.body.style.cursor = "";
-    };
-  }, []);
-
-  useEffect(() => {
     const tick = () => {
       const d = new Date();
       setTime(
@@ -391,15 +382,14 @@ export default function Page5() {
   ];
 
   return (
-    <div className="page5-wrap" style={{ background: "#060402", color: "#ede8dc", fontFamily: "'IBM Plex Mono', monospace", overflowX: "hidden" }}>
+    <div className="page5-wrap bg-theme-tech" style={{ "--bg-theme-glow-strength": 0.62, color: "#ede8dc", fontFamily: "'IBM Plex Mono', monospace", overflowX: "hidden", position: "relative" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@1,700&display=swap');
 
-        .page5-wrap * { cursor: none !important; }
         .page5-wrap ::selection { background: #e8220a; color: #fff; }
 
         .page5-wrap .p5-noise {
-          position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.055;
+          position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: var(--bg-theme-noise-opacity, 0.055);
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
           background-size: 256px;
         }
@@ -604,7 +594,7 @@ export default function Page5() {
 
       <ShaderBG />
       <P5ScrollBar />
-      <P5Cursor />
+      <div className="bg-layer-glow" />
       <div className="p5-noise" />
 
       {/* ═══ HERO ═══ */}
@@ -724,7 +714,7 @@ export default function Page5() {
                   initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.1 + i * 0.05 }}
                   whileHover={{ color: "#f5a800", borderColor: "rgba(245,168,0,0.4)" }}
-                  style={{ fontSize: 9, color: "rgba(237,232,220,0.35)", letterSpacing: "0.14em", textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.07)", padding: "4px 10px", transition: "all 0.2s", cursor: "none" }}>
+                  style={{ fontSize: 9, color: "rgba(237,232,220,0.35)", letterSpacing: "0.14em", textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.07)", padding: "4px 10px", transition: "all 0.2s" }}>
                   {t}
                 </motion.span>
               ))}
@@ -789,7 +779,7 @@ export default function Page5() {
       </section>
 
       {/* ═══ PROCESS ═══ */}
-      <section className="p5-section" style={{ background: "rgba(255,255,255,0.01)" }}>
+      <section className="p5-section bg-section-soft">
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <div className="p5-section-label">§ 02 — Sürecimiz</div>
         </motion.div>
@@ -854,7 +844,7 @@ export default function Page5() {
         <div style={{ display: "flex", gap: 24 }}>
           {["Gizlilik", "Koşullar", "Instagram", "LinkedIn"].map(n => (
             <motion.span key={n} whileHover={{ color: "#f5a800" }}
-              style={{ fontSize: 9, color: "rgba(237,232,220,0.3)", letterSpacing: "0.18em", textTransform: "uppercase", transition: "color 0.18s", cursor: "none" }}>
+              style={{ fontSize: 9, color: "rgba(237,232,220,0.3)", letterSpacing: "0.18em", textTransform: "uppercase", transition: "color 0.18s" }}>
               {n}
             </motion.span>
           ))}
