@@ -1,22 +1,46 @@
 .page-section {
   min-height: calc(100vh - 200px);
   padding: var(--spacing-2xl) var(--spacing-lg);
-  background: var(--bg-color);
+  background: linear-gradient(180deg, rgba(6, 4, 2, 0.8) 0%, rgba(12, 9, 6, 0.95) 100%);
   animation: fadeIn 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-section::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(232, 34, 10, 0.08), transparent 55%),
+              radial-gradient(ellipse at 80% 30%, rgba(245, 168, 0, 0.05), transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .page-section.alternate {
-  background: var(--bg-light);
+  background: linear-gradient(180deg, rgba(12, 9, 6, 0.9) 0%, rgba(6, 4, 2, 0.98) 100%);
 }
 
 .page-title {
-  font-size: 3rem;
-  color: var(--text-color);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  color: #ede8dc;
+  font-family: 'Bebas Neue', 'IBM Plex Mono', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-bottom: var(--spacing-md);
   text-align: center;
   position: relative;
   padding-bottom: var(--spacing-md);
   animation: slideDown 0.6s ease;
+  background: linear-gradient(135deg, #ede8dc 0%, #f5a800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .page-title::after {
@@ -25,14 +49,18 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: var(--primary-color);
-  border-radius: 2px;
-}
-
-.page-description {
-  text-align: center;
+  width: 120px;
+  height: 2px;rem;
+  color: rgba(237, 232, 220, 0.55);
+  font-family: 'IBM Plex Mono', 'Inter', sans-serif;
+  margin-bottom: var(--spacing-xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+  animation: slideUp 0.6s ease;
+  font-weight: 300;
+  letter-spacing: 0.02em
   font-size: 1.2rem;
   color: var(--text-light);
   margin-bottom: var(--spacing-xl);
@@ -45,14 +73,42 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
   margin-top: var(--spacing-xl);
 }
 
 .grid-container .grid-item {
   animation: fadeInUp 0.6s ease;
   animation-fill-mode: both;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.8) 100%);
+  border: 1px solid rgba(206, 17, 65, 0.2);
+  padding: 28px 22px;
+  border-radius: 4px;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-container .grid-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232, 34, 10, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.grid-container .grid-item:hover {
+  border-color: rgba(232, 34, 10, 0.5);
+  background: linear-gradient(135deg, rgba(232, 34, 10, 0.08) 0%, rgba(26, 26, 26, 0.7) 100%);
+  box-shadow: 0 12px 32px rgba(232, 34, 10, 0.2), 0 0 40px rgba(232, 34, 10, 0.15);
+  transform: translateY(-6px);
+}
+
+.grid-container .grid-item:hover::before {
+  opacity: 1;
 }
 
 .grid-container .grid-item:nth-child(1) {

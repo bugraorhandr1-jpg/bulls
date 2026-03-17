@@ -10,7 +10,7 @@ function Header({ t, currentLang, onLanguageChange, isHome }) {
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
   const location = useLocation();
-  const thermalRoutes = ['/thermal', '/spells', '/showcase', '/particle', '/hero', '/mobile', '/digital-house', '/landing'];
+  const thermalRoutes = ['/thermal', '/spells', '/landing'];
   const isThermalContext = thermalRoutes.includes(location.pathname);
   const isSpells = location.pathname === '/spells';
 
@@ -105,54 +105,6 @@ function Header({ t, currentLang, onLanguageChange, isHome }) {
               className={isActive('/thermal') ? 'active' : ''}
             >
               {t.nav.tab7}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/studio" 
-              className={isActive('/studio') ? 'active' : ''}
-            >
-              {t.nav.tab8}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/digital-house" 
-              className={isActive('/digital-house') ? 'active' : ''}
-            >
-              {t.nav.tab9}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/mobile" 
-              className={isActive('/mobile') ? 'active' : ''}
-            >
-              {t.nav.tab10}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/showcase" 
-              className={isActive('/showcase') ? 'active' : ''}
-            >
-              {t.nav.tab11}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/particle" 
-              className={isActive('/particle') ? 'active' : ''}
-            >
-              {t.nav.tab12}
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/hero" 
-              className={isActive('/hero') ? 'active' : ''}
-            >
-              {t.nav.tab13}
             </Link>
           </li>
           <li>

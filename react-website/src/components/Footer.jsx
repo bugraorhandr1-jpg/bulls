@@ -15,7 +15,7 @@ const fadeUp = {
 
 function Footer({ t }) {
   const location = useLocation();
-  const thermalRoutes = ['/thermal', '/spells', '/showcase', '/particle', '/hero', '/mobile', '/digital-house', '/landing'];
+  const thermalRoutes = ['/thermal', '/spells', '/landing'];
   const isThermalContext = thermalRoutes.includes(location.pathname);
   const isSpells = location.pathname === '/spells';
 
@@ -103,9 +103,8 @@ function Footer({ t }) {
               <ul>
                 <li><a href="/gaming">Game Development</a></li>
                 <li><a href="/advertising">Digital Marketing</a></li>
-                <li><a href="/studio">Studio</a></li>
+                <li><a href="/thermal">Design & Motion</a></li>
                 <li><a href="/about">Consulting</a></li>
-                <li><a href="/coming-soon">Coming Soon</a></li>
               </ul>
             </div>
 
@@ -116,7 +115,6 @@ function Footer({ t }) {
                 <li><a href="/about">Our Team</a></li>
                 <li><a href="/about">Careers</a></li>
                 <li><a href="/about">Contact</a></li>
-                <li><a href="/404-test">404 Page</a></li>
               </ul>
             </div>
 
