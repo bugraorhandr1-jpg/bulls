@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(npm run:*)",
+      "Bash(rm pages/Page2.jsx pages/Page6.jsx pages/Page8.jsx pages/Page9.jsx pages/Page10.jsx pages/Page11.jsx pages/Page12.jsx pages/Page13.jsx pages/KVKK.jsx pages/Privacy.jsx pages/Terms.jsx pages/deneme.jsx)",
+      "Bash(rm components/Hero.jsx components/GridItem.jsx components/AIMediaGallery.jsx components/ResponsiveMedia.jsx)",
+      "Bash(rm styles/ai-gallery.css styles/responsive-media.css)",
+      "Bash(rm utils/testImages.js)",
+      "WebSearch",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/texts/splitting/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/texts/rotating/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/backgrounds/stars/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/components/backgrounds/bubble/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/backgrounds/gravity-stars/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/components/backgrounds/gravity-stars/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/components/backgrounds/stars/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/packages/motion/index.ts\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/animate/slot.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/lib/get-strict-context.ts\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/hooks/use-is-in-view.ts\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/primitives/animate/slot/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/lib/get-strict-context/index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/imskyleen/animate-ui/main/apps/www/registry/hooks/use-is-in-view/index.tsx\")",
+      "Bash(npm install:*)",
+      "Bash(node node_modules/vite/bin/vite.js build)",
+      "Bash(find /c/Users/Bugra/Desktop/Bussi/bulls/.claude/worktrees/focused-mendel/react-website -type f \\\\\\(-name *.tsx -o -name *.ts -o -name *.jsx -o -name *.js \\\\\\))",
+      "Bash(grep -r \"phone\\\\|Phone\\\\|gltf\\\\|glb\\\\|three\\\\|Canvas\\\\|useFrame\" /c/Users/Bugra/Desktop/Bussi/bulls/.claude/worktrees/focused-mendel/react-website/src --include=*.jsx --include=*.js)",
+      "Bash(wc -l /c/Users/Bugra/Desktop/Bussi/bulls/.claude/worktrees/focused-mendel/react-website/src/pages/*.jsx)"
+    ]
+  }
+}
