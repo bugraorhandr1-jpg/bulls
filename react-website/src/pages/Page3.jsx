@@ -74,8 +74,14 @@ function Page3({ t }) {
             <div className="app-phone-showcase">
               <div className="phone-glow"></div>
               <div className="app-phone-device">
-                <div className="phone-notch"></div>
+                {/* iPhone 17 Pro - Side Buttons */}
+                <div className="phone-btn-action"></div>
+                <div className="phone-btn-vol-up"></div>
+                <div className="phone-btn-vol-down"></div>
+                <div className="phone-btn-power"></div>
                 <div className="phone-app-screen">
+                  {/* Dynamic Island */}
+                  <div className="dynamic-island"></div>
                   {/* Animated screen content */}
                   <div className="screen-header-bar">
                     <div className="screen-status-dots">

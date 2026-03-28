@@ -4882,12 +4882,12 @@ footer {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ===== PHONE MOCKUP ===== */
+/* ===== PHONE MOCKUP - iPhone 17 Pro Style ===== */
 .app-phone-showcase {
   position: relative;
   flex-shrink: 0;
   width: 380px;
-  height: 520px;
+  height: 540px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4895,9 +4895,9 @@ footer {
 
 .phone-glow {
   position: absolute;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(206, 17, 65, 0.25) 0%, transparent 70%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(206, 17, 65, 0.2) 0%, transparent 70%);
   border-radius: 50%;
   animation: phoneGlowPulse 3s ease-in-out infinite;
   z-index: 0;
@@ -4908,20 +4908,31 @@ footer {
   50% { transform: scale(1.3); opacity: 1; }
 }
 
+/* iPhone 17 Pro - Titanium frame */
 .app-phone-device {
   position: relative;
-  width: 220px;
-  height: 440px;
-  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-  border-radius: 36px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  width: 232px;
+  height: 476px;
+  background: linear-gradient(160deg,
+    #ababab 0%,
+    #6e6e6e 18%,
+    #8c8c8c 35%,
+    #5a5a5a 52%,
+    #8f8f8f 70%,
+    #707070 85%,
+    #9a9a9a 100%
+  );
+  border-radius: 46px;
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset -1px 0 0 rgba(0, 0, 0, 0.25);
   z-index: 1;
   animation: phoneFloat 6s ease-in-out infinite;
-  overflow: hidden;
+  overflow: visible;
 }
 
 @keyframes phoneFloat {
@@ -4929,45 +4940,107 @@ footer {
   50% { transform: translateY(-15px) rotateX(2deg); }
 }
 
-.phone-notch {
+/* iPhone 17 Pro - Side Buttons */
+.phone-btn-action {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
+  left: -4px;
+  top: 88px;
+  width: 4px;
   height: 24px;
-  background: #000;
-  border-radius: 0 0 14px 14px;
-  z-index: 10;
+  background: linear-gradient(180deg, #b0b0b0 0%, #707070 100%);
+  border-radius: 3px 0 0 3px;
+  box-shadow: -2px 0 4px rgba(0,0,0,0.5);
 }
 
-.phone-notch::before {
-  content: '';
+.phone-btn-vol-up {
   position: absolute;
-  top: 8px;
+  left: -4px;
+  top: 128px;
+  width: 4px;
+  height: 48px;
+  background: linear-gradient(180deg, #b0b0b0 0%, #707070 100%);
+  border-radius: 3px 0 0 3px;
+  box-shadow: -2px 0 4px rgba(0,0,0,0.5);
+}
+
+.phone-btn-vol-down {
+  position: absolute;
+  left: -4px;
+  top: 186px;
+  width: 4px;
+  height: 48px;
+  background: linear-gradient(180deg, #b0b0b0 0%, #707070 100%);
+  border-radius: 3px 0 0 3px;
+  box-shadow: -2px 0 4px rgba(0,0,0,0.5);
+}
+
+.phone-btn-power {
+  position: absolute;
+  right: -4px;
+  top: 150px;
+  width: 4px;
+  height: 72px;
+  background: linear-gradient(180deg, #b0b0b0 0%, #707070 100%);
+  border-radius: 0 3px 3px 0;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.5);
+}
+
+/* Dynamic Island */
+.dynamic-island {
+  position: absolute;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
+  width: 98px;
+  height: 30px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 10;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dynamic-island::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
   width: 8px;
   height: 8px;
-  background: rgba(206, 17, 65, 0.4);
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0 0 3px rgba(100, 180, 255, 0.2);
+}
+
+.dynamic-island::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: #0d0d0d;
   border-radius: 50%;
   animation: cameraGlow 3s ease-in-out infinite;
 }
 
 @keyframes cameraGlow {
-  0%, 100% { box-shadow: 0 0 4px rgba(206, 17, 65, 0.4); }
-  50% { box-shadow: 0 0 12px rgba(206, 17, 65, 0.8); }
+  0%, 100% { box-shadow: 0 0 4px rgba(206, 17, 65, 0.3); }
+  50% { box-shadow: 0 0 10px rgba(206, 17, 65, 0.7); }
 }
 
 .phone-app-screen {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
-  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
-  border-radius: 34px;
-  padding: 40px 16px 16px;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: linear-gradient(180deg, #080808 0%, #141414 100%);
+  border-radius: 42px;
+  padding: 58px 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -5391,7 +5464,7 @@ footer {
 
   .app-phone-showcase {
     width: 320px;
-    height: 460px;
+    height: 500px;
   }
 
   .floating-notif {
@@ -5417,8 +5490,8 @@ footer {
   }
 
   .app-phone-device {
-    width: 180px;
-    height: 360px;
+    width: 185px;
+    height: 378px;
   }
 }
 
