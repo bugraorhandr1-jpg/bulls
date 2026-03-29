@@ -1,19 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/img/ChatGPT Image 2 Ara 2025 14_59_01.png';
 
-function Header({ t, currentLang, onLanguageChange }) {
+function Header({ t, currentLang, onLanguageChange, isHome }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const location = useLocation();
+  const thermalRoutes = ['/thermal', '/spells', '/landing'];
+  const isThermalContext = thermalRoutes.includes(location.pathname);
+  const isSpells = location.pathname === '/spells';
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
+      const currentY = window.scrollY;
+      setScrolled(currentY > 0);
+
+      if (currentY > lastScrollY.current && currentY > 80) {
+        setHeaderVisible(false);
+      } else {
+        setHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentY;
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,11 +38,30 @@ function Header({ t, currentLang, onLanguageChange }) {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className={scrolled ? 'scrolled' : ''}>
+    <header
+      className={[
+        scrolled ? 'scrolled' : '',
+        !headerVisible ? 'header-hidden' : '',
+        isHome ? 'header-home' : '',
+        isHome && !scrolled ? 'header-transparent' : '',
+        isThermalContext ? 'header-thermal' : '',
+        isSpells ? 'header-spells' : '',
+      ].filter(Boolean).join(' ')}
+    >
       <nav className="navbar">
         <Link to="/" className="logo">
           <div className="logo-container">
-            <img src={logo} alt="Bulls Logo" className="bull-logo" />
+            <div className="logo-smoke-wrap">
+              <img src={logo} alt="Bulls Logo" className="bull-logo" />
+              <span className="smoke smoke-l1"></span>
+              <span className="smoke smoke-l2"></span>
+              <span className="smoke smoke-l3"></span>
+              <span className="smoke smoke-r1"></span>
+              <span className="smoke smoke-r2"></span>
+              <span className="smoke smoke-r3"></span>
+              <span className="smoke-hot hot-1"></span>
+              <span className="smoke-hot hot-2"></span>
+            </div>
             <h1>{t.logo}</h1>
           </div>
         </Link>
@@ -56,6 +89,30 @@ function Header({ t, currentLang, onLanguageChange }) {
               className={isActive('/about') ? 'active' : ''}
             >
               {t.nav.tab4}
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/landing" 
+              className={isActive('/landing') ? 'active' : ''}
+            >
+              {t.nav.tab5}
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/thermal" 
+              className={isActive('/thermal') ? 'active' : ''}
+            >
+              {t.nav.tab7}
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/spells" 
+              className={isActive('/spells') ? 'active' : ''}
+            >
+              {t.nav.tab14}
             </Link>
           </li>
         </ul>
@@ -87,10 +144,21 @@ Header.propTypes = {
       tab2: PropTypes.string,
       tab3: PropTypes.string,
       tab4: PropTypes.string,
+      tab5: PropTypes.string,
+      tab6: PropTypes.string,
+      tab7: PropTypes.string,
+      tab8: PropTypes.string,
+      tab9: PropTypes.string,
+      tab10: PropTypes.string,
+      tab11: PropTypes.string,
+      tab12: PropTypes.string,
+      tab13: PropTypes.string,
+      tab14: PropTypes.string,
     }),
   }).isRequired,
   currentLang: PropTypes.string.isRequired,
   onLanguageChange: PropTypes.func.isRequired,
+  isHome: PropTypes.bool,
 };
 
 export default Header;
